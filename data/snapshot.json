@@ -18,6 +18,10 @@
       {
         "reasoning": "Hold: price is not breaking support/resistance with enough volume confirmation. Volume ratio is 1.07x; required 1.80x.",
         "status": "hold"
+      },
+      {
+        "reasoning": "Hold: price is not breaking support/resistance with enough volume confirmation. Volume ratio is 1.03x; required 1.80x.",
+        "status": "hold"
       }
     ],
     "open_position": null,
@@ -35,24 +39,24 @@
   },
   "chart_output": "_site-build/live_btcusdt.png",
   "decision": {
-    "reasoning": "Hold: price is not breaking support/resistance with enough volume confirmation. Volume ratio is 1.07x; required 1.80x.",
+    "reasoning": "Hold: price is not breaking support/resistance with enough volume confirmation. Volume ratio is 1.03x; required 1.80x.",
     "status": "hold"
   },
   "paper_trading_only": true,
   "signal": {
     "action": "hold",
     "confidence": 0.0,
-    "entry": 79636.93,
-    "generated_at": 1778213160,
-    "reasoning": "Hold: price is not breaking support/resistance with enough volume confirmation. Volume ratio is 1.07x; required 1.80x.",
-    "resistance": 79666.66,
+    "entry": 79625.39,
+    "generated_at": 1778216220,
+    "reasoning": "Hold: price is not breaking support/resistance with enough volume confirmation. Volume ratio is 1.03x; required 1.80x.",
+    "resistance": 79675.27,
     "risk_reward": 0.0,
     "stop_loss": 0.0,
-    "support": 79563.06,
+    "support": 79548.42,
     "symbol": "BTCUSDT",
     "take_profit": 0.0,
     "timeframe": "1m",
-    "volume_ratio": 1.0711
+    "volume_ratio": 1.0267
   },
   "state_file": ".state/live_btcusdt_paper.json"
 }
