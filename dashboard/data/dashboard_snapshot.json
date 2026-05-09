@@ -104,6 +104,14 @@
       {
         "reasoning": "Opened virtual long because signal confidence 0.3315 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
         "status": "opened"
+      },
+      {
+        "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+        "status": "ignored_existing_position"
+      },
+      {
+        "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+        "status": "ignored_existing_position"
       }
     ],
     "historical_performance": {
@@ -143,26 +151,26 @@
   },
   "chart_output": "_dashboard-build/live_btcusdt_dashboard.png",
   "decision": {
-    "reasoning": "Opened virtual long because signal confidence 0.3315 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
-    "status": "opened"
+    "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+    "status": "ignored_existing_position"
   },
   "paper_trading_only": true,
   "signal": {
     "action": "enter_long",
-    "confidence": 0.3315,
-    "entry": 80473.92353,
+    "confidence": 0.3888,
+    "entry": 80489.19879,
     "entry_offset_pct": 0.001,
-    "generated_at": 1778306580,
+    "generated_at": 1778306640,
     "order_type": "limit",
-    "reasoning": "Limit entry 0.1% above breakout: 80474 (resistance: 80500). Volume 0.85x (threshold: 0.75x), RSI: 42.2. Stop_loss: 25 (0.03%) below structure. Maker fee 0.01%.",
+    "reasoning": "Limit entry 0.1% above breakout: 80489 (resistance: 80500). Volume 1.26x (threshold: 0.75x), RSI: 46.3. Stop_loss: 26 (0.03%) below structure. Maker fee 0.01%.",
     "resistance": 80500.5,
     "risk_reward": 1.52,
-    "stop_loss": 80377.42,
+    "stop_loss": 80392.88,
     "support": 80375.42,
     "symbol": "BTCUSDT",
-    "take_profit": 80418.0172,
+    "take_profit": 80432.9732,
     "timeframe": "1m",
-    "volume_ratio": 0.8504
+    "volume_ratio": 1.2579
   },
   "state_file": ".state/live_btcusdt_paper.json"
 }
