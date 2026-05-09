@@ -3,121 +3,145 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTCUSDT Live Paper Bot — Monitoring Dashboard</title>
+  <title>BTCUSDT Paper Trader — Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --purple: #7132f5;
       --purple-dark: #5741d8;
-      --purple-soft: rgba(133,91,251,0.16);
       --text: #101114;
       --muted: #686b82;
       --silver: #9497a9;
-      --border: #dedee5;
+      --border: #e2e4ed;
       --surface: #ffffff;
-      --soft: #f7f7fb;
+      --soft: #f5f6fa;
       --green: #149e61;
-      --green-soft: rgba(20,158,97,0.16);
+      --green-soft: rgba(20,158,97,0.12);
       --red: #d92d20;
       --red-soft: rgba(217,45,32,0.12);
-      --yellow: #f59e0b;
-      --yellow-soft: rgba(245,158,11,0.12);
-      --shadow: rgba(0,0,0,0.03) 0 4px 24px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--text); background: #fafbff; }
-    a { color: var(--purple-dark); text-decoration: none; }
-    .wrap { max-width: 900px; margin: 0 auto; padding: 32px 20px 64px; }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: -0.03em; }
-    .logo { width: 32px; height: 32px; border-radius: 10px; background: radial-gradient(circle at 30% 20%, #fff 0 12%, #7132f5 13% 100%); box-shadow: var(--shadow); }
-    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; background: var(--purple-soft); color: var(--purple-dark); font-size: 12px; font-weight: 600; }
-    h1 { font-size: 32px; line-height: 1.2; letter-spacing: -0.04em; margin: 0 0 8px; }
-    h2 { font-size: 20px; line-height: 1.3; letter-spacing: -0.03em; margin: 0 0 16px; }
-    .lead { color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 24px; }
-    .panel { background: #fff; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); padding: 24px; margin-bottom: 24px; }
-    .positive { color: var(--green); } .negative { color: var(--red); } .neutral { color: var(--purple-dark); }
-    .balance-graph { height: 280px; position: relative; background: linear-gradient(180deg, #fafbff 0%, #fff 100%); border-radius: 12px; padding: 20px; }
-    .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
-    .stat { flex: 1 1 140px; background: var(--soft); border-radius: 10px; padding: 16px; }
-    .stat label { display: block; font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-    .stat value { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
-    .trade { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-    .trade:last-child { border-bottom: none; }
-    .trade > * { flex: 1; }
-    .trade .side { font-weight: 600; }
-    .muted { color: var(--muted); font-size: 14px; line-height: 1.6; }
-    .analysis { background: linear-gradient(135deg, rgba(113,50,245,0.04) 0%, rgba(113,50,245,0.02) 100%); border: 1px solid rgba(113,50,245,0.15); }
-    .analysis-point { padding: 12px 0; border-bottom: 1px solid rgba(113,50,245,0.1); }
-    .analysis-point:last-child { border-bottom: none; }
-    .analysis-point strong { color: var(--purple-dark); }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--soft); padding: 2px 6px; border-radius: 5px; font-size: 13px; }
-    footer { margin-top: 32px; color: var(--silver); font-size: 12px; text-align: center; }
-    @media (max-width: 640px) { .wrap { padding: 20px 16px; } h1 { font-size: 26px; } .stat { flex: 1 1 100%; } }
+    body { margin: 0; font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #f8f9fc; }
+    .wrap { max-width: 800px; margin: 0 auto; padding: 16px 12px 48px; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; }
+    .logo { width: 28px; height: 28px; border-radius: 8px; background: radial-gradient(circle at 30% 20%, #fff 0 12%, var(--purple) 13% 100%); }
+    .pill { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; background: rgba(113,50,245,0.1); color: var(--purple-dark); }
+    h1 { font-size: 22px; font-weight: 700; margin: 0 0 16px; letter-spacing: -0.02em; }
+    h2 { font-size: 14px; font-weight: 600; margin: 0 0 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: 16px; margin-bottom: 12px; }
+    .positive { color: var(--green); } .negative { color: var(--red); }
+    
+    /* Stats grid - responsive */
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+    .stat { background: var(--soft); border-radius: 10px; padding: 12px; }
+    .stat label { display: block; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+    .stat value { display: block; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .stat value.large { font-size: 22px; }
+    
+    /* Equity graph */
+    .graph-container { height: 180px; background: linear-gradient(180deg, var(--soft) 0%, #fff 100%); border-radius: 10px; overflow: hidden; }
+    .graph-container svg { width: 100%; height: 100%; }
+    
+    /* Compact position card */
+    .position-card { background: var(--soft); border-radius: 10px; padding: 12px 14px; }
+    .position-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .position-main { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .side-badge { font-size: 13px; font-weight: 700; padding: 3px 8px; border-radius: 5px; background: var(--green-soft); color: var(--green); }
+    .side-badge.short { background: var(--red-soft); color: var(--red); }
+    .position-details { display: flex; gap: 12px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+    .position-details span { white-space: nowrap; }
+    .position-pnl { font-size: 20px; font-weight: 700; margin-left: auto; }
+    .no-position { font-size: 14px; color: var(--muted); margin: 0; padding: 8px 0; }
+    
+    /* Trades list */
+    .trades-container { max-height: 280px; overflow-y: auto; }
+    .trade-row { display: grid; grid-template-columns: 50px 1fr 80px; gap: 8px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .trade-row:last-child { border-bottom: none; }
+    .side { font-weight: 600; font-size: 12px; }
+    .prices { color: var(--muted); font-family: ui-monospace, monospace; font-size: 12px; }
+    .pnl { font-weight: 600; text-align: right; font-family: ui-monospace, monospace; }
+    
+    .muted { color: var(--muted); font-size: 13px; }
+    footer { margin-top: 24px; color: var(--silver); font-size: 11px; text-align: center; }
+    
+    /* Mobile optimizations */
+    @media (max-width: 480px) {
+      .wrap { padding: 12px 10px 40px; }
+      h1 { font-size: 19px; }
+      h2 { font-size: 12px; }
+      .panel { padding: 12px; border-radius: 10px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .stat { padding: 10px; }
+      .stat label { font-size: 10px; }
+      .stat value { font-size: 16px; }
+      .stat value.large { font-size: 19px; }
+      .graph-container { height: 160px; }
+      .position-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .position-pnl { margin-left: 0; }
+      .position-details { gap: 8px; font-size: 12px; }
+      .trade-row { grid-template-columns: 45px 1fr 70px; gap: 6px; padding: 8px 0; font-size: 12px; }
+      .side { font-size: 11px; }
+      .prices { font-size: 11px; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <div class="brand"><div class="logo"></div> BTCUSDT Paper Trader</div>
-      <div class="pill">Updates every 4h</div>
+      <div class="pill">Live</div>
     </header>
 
     <h1>Dashboard</h1>
-    <p class="lead">Balance tracking, open positions, and AI-powered progress analysis</p>
 
     <div class="panel">
-      <h2>Balance Over Time</h2>
-      <div class="stat-row">
+      <h2>Balance</h2>
+      <div class="stats-grid">
         <div class="stat">
           <label>Current Equity</label>
-          <value class="negative">953.38 USDT</value>
+          <value class="negative">923.96 USDT</value>
         </div>
         <div class="stat">
           <label>Total PnL</label>
-          <value class="negative">-46.62 USDT (-4.66%)</value>
+          <value class="large negative">-76.04 (-7.6%)</value>
         </div>
         <div class="stat">
-          <label>Starting Capital</label>
-          <value>1,000.00 USDT</value>
+          <label>Starting</label>
+          <value>1,000 USDT</value>
         </div>
         <div class="stat">
           <label>Win Rate</label>
-          <value class="negative">0.0%</value>
+          <value class="negative">0%</value>
         </div>
       </div>
-      <div class="balance-graph">
-        <svg width="100%" height="100%" viewBox="0 0 800 240" preserveAspectRatio="none">
-          <line x1="0" y1="20.0" x2="800" y2="20.0" stroke="#9497a9" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="8" y="16.000000000000114" fill="#9497a9" font-size="10">Start: 1000</text>
-    <polygon points="0.0,87.7 266.7,154.2 533.3,220.0 800.0,220.0 800,240 0,240" fill="#d92d2022"/>
-    <polyline points="0.0,87.7 266.7,154.2 533.3,220.0 800.0,220.0" fill="none" stroke="#d92d20" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <div class="graph-container">
+        <svg viewBox="0 0 400 160" preserveAspectRatio="none">
+          <line x1="0" y1="13.3" x2="400" y2="13.3" stroke="#9497a9" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+    <text x="8" y="9.3333333333334" fill="#9497a9" font-size="10">Start: 1000</text>
+    <polygon points="0.0,41.0 80.0,68.2 160.0,95.1 240.0,121.5 320.0,146.7 400.0,146.7 400,160 0,160" fill="#d92d2022"/>
+    <polyline points="0.0,41.0 80.0,68.2 160.0,95.1 240.0,121.5 320.0,146.7 400.0,146.7" fill="none" stroke="#d92d20" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
 
     <div class="panel">
       <h2>Open Position</h2>
-      <div class='position-card'><p class='muted'><strong>Open paper position:</strong> LONG</p><div class='position-details'><span>Qty: <code>0.09879239</code></span><span>Entry: <code>80,473.92</code></span><span>Current: <code>80,473.92</code></span><span>SL: <code>80377.42</code></span><span>TP: <code>80418.0172</code></span></div><div class='pnl-display neutral'><strong>Unrealized PnL:</strong> +0.00 USDT (+0.00%)</div></div>
+      <div class='position-card'><div class='position-row'><div class='position-main'><span class='side-badge '>LONG</span><div class='position-details'><span>Qty: 0.08668015</span><span>Entry: 80,325</span><span>Current: 80,325</span></div></div><span class='position-pnl '>+0.00 (+0.0%)</span></div></div>
     </div>
 
     <div class="panel">
-      <h2>Recent Trades (Last 10)</h2>
-      <div class='trade'><span class='negative'>LONG</span><span>80,477.90 → 80,380.29</span><span class='negative'>-15.77 USDT</span></div><div class='trade'><span class='negative'>LONG</span><span>80,477.90 → 80,380.29</span><span class='negative'>-15.52 USDT</span></div><div class='trade'><span class='negative'>LONG</span><span>80,473.92 → 80,377.42</span><span class='negative'>-15.34 USDT</span></div>
-    </div>
-
-    <div class="panel analysis">
-      <h2>AI Analysis</h2>
-      <p class='negative'><strong>Performance:</strong> Down 4.7% — small drawdown, within normal variance. Continue monitoring win rate and trade frequency.</p>
-<p class='negative'><strong>Win Rate:</strong> 0.0% — below target. Review trade entries and consider tighter stop losses.</p>
-<p class='neutral'><strong>Activity:</strong> Low trade count — building statistical sample. Patience is appropriate in early stages.</p>
-<p class='neutral'><strong>Adaptation:</strong> Mode is <code>defensive</code> — Recent losing streak detected; reduce risk and require stronger confirmation.</p>
+      <h2>Recent Trades</h2>
+      <div class="trades-container">
+        <div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,478→80,380</span><span class='pnl negative'>-15.77</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,478→80,380</span><span class='pnl negative'>-15.52</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,474→80,377</span><span class='pnl negative'>-15.34</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,474→80,377</span><span class='pnl negative'>-15.09</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,325→80,218</span><span class='pnl negative'>-14.33</span></div>
+      </div>
     </div>
 
     <footer>
-      Last updated: 2026-05-09 06:04 UTC • Paper trading only • Not financial advice
+      Updated: 2026-05-09 06:42 UTC • Paper only
     </footer>
   </div>
 </body>
