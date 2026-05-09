@@ -1,11 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTCUSDT Paper Trader — Dashboard</title>
+  <title>BTCUSDT Multi-Strategy Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -13,292 +12,238 @@
       --purple-dark: #5741d8;
       --text: #101114;
       --muted: #686b82;
-      --silver: #9497a9;
-      --border: #e2e4ed;
-      --surface: #ffffff;
-      --soft: #f5f6fa;
       --green: #149e61;
       --green-soft: rgba(20,158,97,0.12);
       --red: #d92d20;
       --red-soft: rgba(217,45,32,0.12);
-      --shadow: 0 1px 3px rgba(0,0,0,0.08);
+      --surface: #ffffff;
+      --soft: #f7f7fb;
+      --border: #dedee5;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #f8f9fc; }
-    .wrap { max-width: 800px; margin: 0 auto; padding: 16px 12px 48px; }
-    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; }
-    .logo { width: 28px; height: 28px; border-radius: 8px; background: radial-gradient(circle at 30% 20%, #fff 0 12%, var(--purple) 13% 100%); }
-    .pill { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; background: rgba(113,50,245,0.1); color: var(--purple-dark); }
-    h1 { font-size: 22px; font-weight: 700; margin: 0 0 16px; letter-spacing: -0.02em; }
-    h2 { font-size: 14px; font-weight: 600; margin: 0 0 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
-    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: 16px; margin-bottom: 12px; }
-    .positive { color: var(--green); } .negative { color: var(--red); }
+    body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--soft); color: var(--text); }
+    .wrap { max-width: 1400px; margin: 0 auto; padding: 32px 24px; }
+    header { margin-bottom: 32px; }
+    h1 { font-size: 32px; margin: 0 0 8px; }
+    .timestamp { color: var(--muted); font-size: 14px; }
     
-    /* Stats grid - responsive */
-    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
-    .stat { background: var(--soft); border-radius: 10px; padding: 12px; }
-    .stat label { display: block; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
-    .stat value { display: block; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
-    .stat value.large { font-size: 22px; }
-    
-    /* Equity graph */
-    .graph-container { height: 180px; background: linear-gradient(180deg, var(--soft) 0%, #fff 100%); border-radius: 10px; overflow: hidden; }
-    .graph-container svg { width: 100%; height: 100%; }
-    
-    /* Compact position card */
-    .position-card { background: var(--soft); border-radius: 10px; padding: 12px 14px; }
-    .position-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-    .position-main { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-    .side-badge { font-size: 13px; font-weight: 700; padding: 3px 8px; border-radius: 5px; background: var(--green-soft); color: var(--green); }
-    .side-badge.short { background: var(--red-soft); color: var(--red); }
-    .position-details { display: flex; gap: 12px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
-    .position-details span { white-space: nowrap; }
-    .position-pnl { font-size: 20px; font-weight: 700; margin-left: auto; }
-    .no-position { font-size: 14px; color: var(--muted); margin: 0; padding: 8px 0; }
-    
-    /* Trades list */
-    .trades-container { max-height: 280px; overflow-y: auto; }
-    .trade-row { display: grid; grid-template-columns: 50px 1fr 80px; gap: 8px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-    .trade-row:last-child { border-bottom: none; }
-    .side { font-weight: 600; font-size: 12px; }
-    .prices { color: var(--muted); font-family: ui-monospace, monospace; font-size: 12px; }
-    .pnl { font-weight: 600; text-align: right; font-family: ui-monospace, monospace; }
-    
-    /* Adaptation section - collapsible */
-    .adaptation-section { margin-top: 12px; }
-    .accordion { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
-    .accordion-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; cursor: pointer; background: var(--soft); font-weight: 600; font-size: 14px; }
-    .accordion-header:hover { background: #f0f2f8; }
-    .accordion-icon { transition: transform 0.2s; font-size: 16px; }
-    .accordion-content { display: none; padding: 16px; border-top: 1px solid var(--border); }
-    .accordion.active .accordion-content { display: block; }
-    .accordion.active .accordion-icon { transform: rotate(180deg); }
-    .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 12px; }
-    .metric-item { background: var(--soft); border-radius: 8px; padding: 10px; }
-    .metric-item label { display: block; font-size: 10px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
-    .metric-item value { display: block; font-size: 14px; font-weight: 600; }
-    .metric-item value.positive { color: var(--green); }
-    .metric-item value.negative { color: var(--red); }
-    .metric-item value.neutral { color: var(--purple); }
-    .rolling-window { background: var(--soft); border-radius: 8px; padding: 12px; margin-bottom: 8px; }
-    .rolling-window:last-child { margin-bottom: 0; }
-    .rolling-window h4 { margin: 0 0 8px; font-size: 13px; font-weight: 600; }
-    .regime-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
-    .regime-badge.trending { background: var(--green-soft); color: var(--green); }
-    .regime-badge.ranging { background: var(--red-soft); color: var(--red); }
-    .regime-badge.transitie { background: rgba(113,50,245,0.15); color: var(--purple); }
-    .regime-badge.onbekend { background: var(--silver); color: #fff; }
-    .drawdown-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-top: 6px; }
-    .drawdown-fill { height: 100%; background: var(--red); border-radius: 4px; }
-    
-    .muted { color: var(--muted); font-size: 13px; }
-    footer { margin-top: 24px; color: var(--silver); font-size: 11px; text-align: center; }
-    
-    /* Mobile optimizations */
-    @media (max-width: 480px) {
-      .wrap { padding: 12px 10px 40px; }
-      h1 { font-size: 19px; }
-      h2 { font-size: 12px; }
-      .panel { padding: 12px; border-radius: 10px; }
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .stat { padding: 10px; }
-      .stat label { font-size: 10px; }
-      .stat value { font-size: 16px; }
-      .stat value.large { font-size: 19px; }
-      .graph-container { height: 160px; }
-      .position-row { flex-direction: column; align-items: flex-start; gap: 8px; }
-      .position-pnl { margin-left: 0; }
-      .position-details { gap: 8px; font-size: 12px; }
-      .trade-row { grid-template-columns: 45px 1fr 70px; gap: 6px; padding: 8px 0; font-size: 12px; }
-      .side { font-size: 11px; }
-      .prices { font-size: 11px; }
-      .metric-grid { grid-template-columns: 1fr; }
-      .accordion-header { font-size: 13px; padding: 12px 14px; }
-      .accordion-content { padding: 12px; }
-      .rolling-window { padding: 10px; }
+    .strategies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
     }
+    
+    .strategy-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    
+    .strategy-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .strategy-header h3 { margin: 0; font-size: 20px; }
+    
+    .equity { text-align: right; }
+    .equity .amount { font-size: 24px; font-weight: 700; display: block; }
+    .equity .change { font-size: 14px; font-weight: 600; }
+    .equity.positive .change { color: var(--green); }
+    .equity.negative .change { color: var(--red); }
+    
+    .position-card {
+      background: var(--soft);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .position-card.positive { background: var(--green-soft); }
+    .position-card.negative { background: var(--red-soft); }
+    .position-card h4 { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+    .position-details { display: flex; gap: 16px; flex-wrap: wrap; }
+    .position-details span { font-size: 14px; }
+    .position-details .side { font-weight: 700; }
+    .position-details .pnl { font-weight: 600; }
+    
+    .no-position {
+      color: var(--muted);
+      font-style: italic;
+      padding: 12px;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .trades-section h4 { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+    
+    .trades-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .trades-table th {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 2px solid var(--border);
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .trades-table td {
+      padding: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .trades-table .positive { color: var(--green); font-weight: 600; }
+    .trades-table .negative { color: var(--red); font-weight: 600; }
+    .trades-table .muted { color: var(--muted); font-style: italic; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div class="brand"><div class="logo"></div> BTCUSDT Paper Trader</div>
-      <div class="pill">Live</div>
+      <h1>🚀 BTCUSDT Multi-Strategy Dashboard</h1>
+      <div class="timestamp">Gegenereerd: 2026-05-09T13:10:47.101251+00:00</div>
     </header>
-
-    <h1>Dashboard</h1>
-
-    <div class="panel">
-      <h2>Balance</h2>
-      <div class="stats-grid">
-        <div class="stat">
-          <label>Current Equity</label>
-          <value class="negative">828.49 USDT</value>
-        </div>
-        <div class="stat">
-          <label>Total PnL</label>
-          <value class="large negative">-171.51 (-17.1%)</value>
-        </div>
-        <div class="stat">
-          <label>Starting</label>
-          <value>1,000 USDT</value>
-        </div>
-        <div class="stat">
-          <label>Win Rate</label>
-          <value class="negative">0%</value>
-        </div>
-      </div>
-      <div class="graph-container">
-        <svg viewBox="0 0 400 160" preserveAspectRatio="none">
-          <line x1="0" y1="13.3" x2="400" y2="13.3" stroke="#9497a9" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
-    <text x="8" y="9.333333333333314" fill="#9497a9" font-size="10">Start: 1000</text>
-    <polygon points="0.0,25.6 30.8,37.7 61.5,49.6 92.3,61.3 123.1,72.4 153.8,83.4 184.6,95.4 215.4,107.3 246.2,118.9 276.9,123.5 307.7,133.9 338.5,144.1 369.2,146.7 400.0,146.7 400,160 0,160" fill="#d92d2022"/>
-    <polyline points="0.0,25.6 30.8,37.7 61.5,49.6 92.3,61.3 123.1,72.4 153.8,83.4 184.6,95.4 215.4,107.3 246.2,118.9 276.9,123.5 307.7,133.9 338.5,144.1 369.2,146.7 400.0,146.7" fill="none" stroke="#d92d20" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Open Position</h2>
-      <p class='no-position'>No open position</p>
-    </div>
-
-    <div class="panel">
-      <h2>Recent Trades</h2>
-      <div class="trades-container">
-        <div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,474→80,377</span><span class='pnl negative'>-15.09</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,325→80,218</span><span class='pnl negative'>-14.33</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,325→80,218</span><span class='pnl negative'>-14.11</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,296→80,215</span><span class='pnl negative'>-15.47</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,296→80,215</span><span class='pnl negative'>-15.21</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,296→80,215</span><span class='pnl negative'>-14.95</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,296→80,257</span><span class='pnl negative'>-5.93</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,322→80,221</span><span class='pnl negative'>-13.36</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,322→80,221</span><span class='pnl negative'>-13.16</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,306→80,277</span><span class='pnl negative'>-3.29</span></div>
-      </div>
-    </div>
-
     
-    <div class="panel adaptation-section">
-      <h2>Long-Term Adaptation Analysis</h2>
+    <div class="strategies-grid">
       
-      <div class="accordion">
-        <div class="accordion-header">
-          <span>📊 Statistical Significance</span>
-          <span class="accordion-icon">▼</span>
+        <div class="strategy-card">
+            <div class="strategy-header">
+                <h3>Breakout</h3>
+                <div class="equity positive">
+                    <span class="amount">1,000.00 USDT</span>
+                    <span class="change">+0.00 (+0.00%)</span>
+                </div>
+            </div>
+            
+            <div class="no-position">Geen open positie</div>
+            
+            <div class="trades-section">
+                <h4>Laatste 10 Trades</h4>
+                <table class="trades-table">
+                    <thead>
+                        <tr>
+                            <th>Side</th>
+                            <th>Entry</th>
+                            <th>Exit</th>
+                            <th>Qty</th>
+                            <th>PNL</th>
+                            <th>Return</th>
+                            <th>Exit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan='7' class='muted'>Nog geen trades</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="accordion-content">
-          <div class='metric-grid'>
-            <div class='metric-item'>
-              <label>P-Value</label>
-              <value class='negative'>N/A</value>
+        
+        <div class="strategy-card">
+            <div class="strategy-header">
+                <h3>Mean Reversion</h3>
+                <div class="equity positive">
+                    <span class="amount">1,000.00 USDT</span>
+                    <span class="change">+0.00 (+0.00%)</span>
+                </div>
             </div>
-            <div class='metric-item'>
-              <label>Significant</label>
-              <value class='negative'>No</value>
+            
+            <div class="no-position">Geen open positie</div>
+            
+            <div class="trades-section">
+                <h4>Laatste 10 Trades</h4>
+                <table class="trades-table">
+                    <thead>
+                        <tr>
+                            <th>Side</th>
+                            <th>Entry</th>
+                            <th>Exit</th>
+                            <th>Qty</th>
+                            <th>PNL</th>
+                            <th>Return</th>
+                            <th>Exit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan='7' class='muted'>Nog geen trades</td></tr>
+                    </tbody>
+                </table>
             </div>
-            <div class='metric-item'>
-              <label>95% Confidence Interval</label>
-              <value>N/A</value>
-            </div>
-            <div class='metric-item'>
-              <label>Expectancy</label>
-              <value class='negative'>-13.1931 USDT</value>
-            </div>
-          </div>
         </div>
-      </div>
-      
-      <div class="accordion">
-        <div class="accordion-header">
-          <span>📈 Rolling Windows Performance</span>
-          <span class="accordion-icon">▼</span>
+        
+        <div class="strategy-card">
+            <div class="strategy-header">
+                <h3>Conservative</h3>
+                <div class="equity positive">
+                    <span class="amount">1,000.00 USDT</span>
+                    <span class="change">+0.00 (+0.00%)</span>
+                </div>
+            </div>
+            
+            <div class="no-position">Geen open positie</div>
+            
+            <div class="trades-section">
+                <h4>Laatste 10 Trades</h4>
+                <table class="trades-table">
+                    <thead>
+                        <tr>
+                            <th>Side</th>
+                            <th>Entry</th>
+                            <th>Exit</th>
+                            <th>Qty</th>
+                            <th>PNL</th>
+                            <th>Return</th>
+                            <th>Exit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan='7' class='muted'>Nog geen trades</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="accordion-content">
-          <p class='muted'>Insufficient trades for rolling window analysis (need 50+ trades)</p>
+        
+        <div class="strategy-card">
+            <div class="strategy-header">
+                <h3>Martingale</h3>
+                <div class="equity positive">
+                    <span class="amount">1,000.00 USDT</span>
+                    <span class="change">+0.00 (+0.00%)</span>
+                </div>
+            </div>
+            
+            <div class="no-position">Geen open positie</div>
+            
+            <div class="trades-section">
+                <h4>Laatste 10 Trades</h4>
+                <table class="trades-table">
+                    <thead>
+                        <tr>
+                            <th>Side</th>
+                            <th>Entry</th>
+                            <th>Exit</th>
+                            <th>Qty</th>
+                            <th>PNL</th>
+                            <th>Return</th>
+                            <th>Exit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan='7' class='muted'>Nog geen trades</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-      
-      <div class="accordion">
-        <div class="accordion-header">
-          <span>📉 Drawdown Analysis</span>
-          <span class="accordion-icon">▼</span>
-        </div>
-        <div class="accordion-content">
-          <div class='metric-grid'>
-            <div class='metric-item'>
-              <label>Max Drawdown</label>
-              <value class='negative'>+171.51 USDT (17.2%)</value>
-            </div>
-            <div class='metric-item'>
-              <label>Current Drawdown</label>
-              <value class='negative'>+171.51 USDT (17.2%)</value>
-            </div>
-            <div class='metric-item'>
-              <label>Recovery Factor</label>
-              <value class='neutral'>-1.00</value>
-            </div>
-            <div class='metric-item'>
-              <label>Peak Equity</label>
-              <value>1,000.00 USDT</value>
-            </div>
-          </div>
-          <div class='drawdown-bar'>
-            <div class='drawdown-fill' style='width: 85.8%'></div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="accordion">
-        <div class="accordion-header">
-          <span>🔍 Market Regime Detection</span>
-          <span class="accordion-icon">▼</span>
-        </div>
-        <div class="accordion-content">
-          <div class='metric-grid'>
-            <div class='metric-item'>
-              <label>Detected Regime</label>
-              <value><span class='regime-badge onbekend'>onbekend</span></value>
-            </div>
-            <div class='metric-item'>
-              <label>Confidence</label>
-              <value>0%</value>
-            </div>
-            <div class='metric-item'>
-              <label>Recommendation</label>
-              <value class='neutral' style='font-size: 12px;'>N/A</value>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="accordion active">
-        <div class="accordion-header">
-          <span>⚙️ Adaptation Mode</span>
-          <span class="accordion-icon">▼</span>
-        </div>
-        <div class="accordion-content">
-          <div class='metric-grid'>
-            <div class='metric-item'>
-              <label>Current Mode</label>
-              <value class='neutral'>Data Gathering</value>
-            </div>
-            <div class='metric-item'>
-              <label>Suggested Risk</label>
-              <value>0.50% per trade</value>
-            </div>
-          </div>
-          <p class='muted' style='margin-top: 12px; font-size: 12px;'>Verzamel meer data (13/30 trades). Risico beperkt tot 0.50%.</p>
-        </div>
-      </div>
+        
     </div>
-    
-
-    <footer>
-      Updated: 2026-05-09 12:13 UTC • Paper only
-    </footer>
   </div>
-  <script>
-    // Accordion toggle functionality
-    document.querySelectorAll('.accordion-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const accordion = header.parentElement;
-        accordion.classList.toggle('active');
-      });
-    });
-  </script>
 </body>
 </html>
