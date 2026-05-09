@@ -273,6 +273,14 @@
       {
         "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.51x (threshold: 0.75x), RSI: 56.1.",
         "status": "hold"
+      },
+      {
+        "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.51x (threshold: 0.75x), RSI: 56.1.",
+        "status": "hold"
+      },
+      {
+        "reasoning": "Opened virtual long because signal confidence 0.4433 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+        "status": "opened"
       }
     ],
     "historical_performance": {
@@ -288,41 +296,84 @@
       "peak_equity": 1000.0,
       "trough_equity": 858.303521
     },
-    "open_position": null,
+    "open_position": {
+      "entry": 80322.22198,
+      "opened_at": 1778320500,
+      "qty": 0.08513904,
+      "reasoning": "Limit entry 0.1% above breakout: 80322 (resistance: 80353). Volume 1.59x (threshold: 0.75x), RSI: 44.5. Stop_loss: 36 (0.04%) below structure. Maker fee 0.01%.",
+      "side": "long",
+      "stop_loss": 80221.41,
+      "symbol": "BTCUSDT",
+      "take_profit": 80273.2464
+    },
     "paper_trading_only": true,
     "risk_per_trade_pct": 1.0,
     "starting_cash": 1000.0
   },
   "adaptation": {
     "closed_trades": 10,
-    "conclusion": "Recent losing streak detected; reduce risk and require stronger confirmation.",
-    "mode": "defensive",
+    "conclusion": "Verzamel meer data (10/30 trades). Risico beperkt tot 0.50%.",
+    "drawdown_analysis": {
+      "current_drawdown": 141.696479,
+      "current_drawdown_pct": 14.1696,
+      "current_equity": 858.303521,
+      "max_drawdown": 141.696479,
+      "max_drawdown_pct": 14.1696,
+      "peak_equity": 1000.0,
+      "recovery_factor": -1.0
+    },
+    "expectancy": -14.169648,
+    "mode": "data_gathering",
     "profit_factor": 0.0,
+    "regime_detection": {
+      "confidence": 0.0,
+      "reason": "Onvoldoende trades voor regime detection (minimaal 20 vereist)",
+      "regime": "onbekend"
+    },
+    "rolling_windows": {
+      "window_100": {
+        "available": false,
+        "reason": "Onvoldoende trades (10 < 100)"
+      },
+      "window_200": {
+        "available": false,
+        "reason": "Onvoldoende trades (10 < 200)"
+      },
+      "window_50": {
+        "available": false,
+        "reason": "Onvoldoende trades (10 < 50)"
+      }
+    },
+    "statistical_significance": {
+      "min_samples_needed": 20,
+      "reason": "Onvoldoende samples voor statistische analyse (minimaal 30 trades vereist)",
+      "significant": false
+    },
     "suggested_risk_per_trade_pct": 0.5,
     "win_rate": 0.0
   },
   "chart_output": "_site-build/live_btcusdt.png",
   "decision": {
-    "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.51x (threshold: 0.75x), RSI: 56.1.",
-    "status": "hold"
+    "reasoning": "Opened virtual long because signal confidence 0.4433 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+    "status": "opened"
   },
   "paper_trading_only": true,
   "signal": {
-    "action": "hold",
-    "confidence": 0.0,
-    "entry": 80404.83,
+    "action": "enter_long",
+    "confidence": 0.4433,
+    "entry": 80322.22198,
     "entry_offset_pct": 0.001,
-    "generated_at": 1778315280,
+    "generated_at": 1778320500,
     "order_type": "limit",
-    "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.51x (threshold: 0.75x), RSI: 56.1.",
-    "resistance": 80422.57,
-    "risk_reward": 0.0,
-    "stop_loss": 0.0,
-    "support": 80292.3,
+    "reasoning": "Limit entry 0.1% above breakout: 80322 (resistance: 80353). Volume 1.59x (threshold: 0.75x), RSI: 44.5. Stop_loss: 36 (0.04%) below structure. Maker fee 0.01%.",
+    "resistance": 80353.08,
+    "risk_reward": 1.52,
+    "stop_loss": 80221.41,
+    "support": 80206.52,
     "symbol": "BTCUSDT",
-    "take_profit": 0.0,
+    "take_profit": 80273.2464,
     "timeframe": "1m",
-    "volume_ratio": 0.507
+    "volume_ratio": 1.5886
   },
   "state_file": ".state/live_btcusdt_paper.json"
 }
