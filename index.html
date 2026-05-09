@@ -3,140 +3,145 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTCUSDT Live Paper Bot — Insights & Transparency</title>
+  <title>BTCUSDT Paper Trader — Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --purple: #7132f5;
       --purple-dark: #5741d8;
-      --purple-soft: rgba(133,91,251,0.16);
       --text: #101114;
       --muted: #686b82;
       --silver: #9497a9;
-      --border: #dedee5;
+      --border: #e2e4ed;
       --surface: #ffffff;
-      --soft: #f7f7fb;
+      --soft: #f5f6fa;
       --green: #149e61;
-      --green-soft: rgba(20,158,97,0.16);
+      --green-soft: rgba(20,158,97,0.12);
       --red: #d92d20;
       --red-soft: rgba(217,45,32,0.12);
-      --shadow: rgba(0,0,0,0.03) 0 4px 24px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; color: var(--text); background: linear-gradient(180deg, #fff 0%, #f6f3ff 42%, #fff 100%); }
-    a { color: var(--purple-dark); text-decoration: none; }
-    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 64px; }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 52px; }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: -0.03em; }
-    .logo { width: 36px; height: 36px; border-radius: 12px; background: radial-gradient(circle at 30% 20%, #fff 0 12%, #7132f5 13% 100%); box-shadow: var(--shadow); }
-    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; background: var(--purple-soft); color: var(--purple-dark); font-size: 13px; font-weight: 600; }
-    .hero { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; }
-    .hero > * { flex: 1 1 440px; }
-    .hero-card, .panel { background: rgba(255,255,255,0.86); border: 1px solid rgba(104,107,130,0.18); border-radius: 16px; box-shadow: var(--shadow); }
-    .hero-card { padding: 36px; }
-    h1 { font-size: clamp(40px, 6vw, 70px); line-height: .98; letter-spacing: -0.06em; margin: 18px 0 18px; }
-    h2 { font-size: 28px; line-height: 1.15; letter-spacing: -0.04em; margin: 0 0 18px; }
-    h3 { font-size: 17px; margin: 0 0 8px; }
-    .lead { color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 680px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
-    .button { display: inline-flex; align-items: center; justify-content: center; padding: 13px 16px; border-radius: 12px; font-weight: 600; }
-    .button.primary { background: var(--purple); color: #fff; }
-    .button.secondary { background: #fff; color: var(--purple-dark); border: 1px solid var(--purple-dark); }
-    .chart { padding: 16px; }
-    .chart img { width: 100%; display: block; border-radius: 12px; background: #0b1020; }
-    .caption { color: var(--silver); font-size: 13px; margin-top: 10px; }
-    .metrics { display: flex; flex-wrap: wrap; gap: 14px; margin: 26px 0; }
-    .metric { flex: 1 1 240px; background: var(--surface); border: 1px solid rgba(104,107,130,0.16); border-radius: 16px; padding: 18px; box-shadow: rgba(16,24,40,0.04) 0 1px 4px; }
-    .metric span { display: block; color: var(--silver); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
-    .metric strong { display: block; margin-top: 8px; font-size: 24px; letter-spacing: -0.04em; }
-    .metric .small { font-size: 15px; color: var(--muted); font-weight: 500; }
-    .positive { color: var(--green); } .negative { color: var(--red); } .neutral { color: var(--purple-dark); }
-    .columns2 { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 18px; }
-    .columns2 > .panel { flex: 1 1 420px; }
-    .panel { padding: 24px; }
-    .explain { display: flex; flex-direction: column; gap: 12px; }
-    .rule { border: 1px solid rgba(104,107,130,0.16); border-radius: 12px; padding: 14px; background: #fff; }
-    .muted { color: var(--muted); line-height: 1.55; }
-    .status { display: inline-flex; padding: 6px 8px; border-radius: 6px; background: var(--green-soft); color: #026b3f; font-size: 13px; font-weight: 700; }
-    .status.warn { background: var(--red-soft); color: var(--red); }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: rgba(104,107,130,0.10); padding: 2px 6px; border-radius: 6px; }
-    .trade { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(104,107,130,0.14); font-size: 14px; }
-    .trade > * { flex: 1 1 110px; }
-    footer { margin-top: 42px; color: var(--silver); font-size: 13px; line-height: 1.5; }
-    @media (max-width: 560px) { .hero-card { padding: 24px; } header { align-items: flex-start; flex-direction: column; } }
+    body { margin: 0; font-family: 'Inter', system-ui, sans-serif; color: var(--text); background: #f8f9fc; }
+    .wrap { max-width: 800px; margin: 0 auto; padding: 16px 12px 48px; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; }
+    .logo { width: 28px; height: 28px; border-radius: 8px; background: radial-gradient(circle at 30% 20%, #fff 0 12%, var(--purple) 13% 100%); }
+    .pill { font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; background: rgba(113,50,245,0.1); color: var(--purple-dark); }
+    h1 { font-size: 22px; font-weight: 700; margin: 0 0 16px; letter-spacing: -0.02em; }
+    h2 { font-size: 14px; font-weight: 600; margin: 0 0 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); padding: 16px; margin-bottom: 12px; }
+    .positive { color: var(--green); } .negative { color: var(--red); }
+    
+    /* Stats grid - responsive */
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+    .stat { background: var(--soft); border-radius: 10px; padding: 12px; }
+    .stat label { display: block; font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+    .stat value { display: block; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .stat value.large { font-size: 22px; }
+    
+    /* Equity graph */
+    .graph-container { height: 180px; background: linear-gradient(180deg, var(--soft) 0%, #fff 100%); border-radius: 10px; overflow: hidden; }
+    .graph-container svg { width: 100%; height: 100%; }
+    
+    /* Compact position card */
+    .position-card { background: var(--soft); border-radius: 10px; padding: 12px 14px; }
+    .position-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+    .position-main { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .side-badge { font-size: 13px; font-weight: 700; padding: 3px 8px; border-radius: 5px; background: var(--green-soft); color: var(--green); }
+    .side-badge.short { background: var(--red-soft); color: var(--red); }
+    .position-details { display: flex; gap: 12px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+    .position-details span { white-space: nowrap; }
+    .position-pnl { font-size: 20px; font-weight: 700; margin-left: auto; }
+    .no-position { font-size: 14px; color: var(--muted); margin: 0; padding: 8px 0; }
+    
+    /* Trades list */
+    .trades-container { max-height: 280px; overflow-y: auto; }
+    .trade-row { display: grid; grid-template-columns: 50px 1fr 80px; gap: 8px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .trade-row:last-child { border-bottom: none; }
+    .side { font-weight: 600; font-size: 12px; }
+    .prices { color: var(--muted); font-family: ui-monospace, monospace; font-size: 12px; }
+    .pnl { font-weight: 600; text-align: right; font-family: ui-monospace, monospace; }
+    
+    .muted { color: var(--muted); font-size: 13px; }
+    footer { margin-top: 24px; color: var(--silver); font-size: 11px; text-align: center; }
+    
+    /* Mobile optimizations */
+    @media (max-width: 480px) {
+      .wrap { padding: 12px 10px 40px; }
+      h1 { font-size: 19px; }
+      h2 { font-size: 12px; }
+      .panel { padding: 12px; border-radius: 10px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .stat { padding: 10px; }
+      .stat label { font-size: 10px; }
+      .stat value { font-size: 16px; }
+      .stat value.large { font-size: 19px; }
+      .graph-container { height: 160px; }
+      .position-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .position-pnl { margin-left: 0; }
+      .position-details { gap: 8px; font-size: 12px; }
+      .trade-row { grid-template-columns: 45px 1fr 70px; gap: 6px; padding: 8px 0; font-size: 12px; }
+      .side { font-size: 11px; }
+      .prices { font-size: 11px; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <div class="brand"><div class="logo"></div> BTCUSDT Live Paper Bot</div>
-      <div class="pill">Paper-only • Updates every 4h • Transparent rules</div>
+      <div class="brand"><div class="logo"></div> BTCUSDT Paper Trader</div>
+      <div class="pill">Live</div>
     </header>
 
-    <section class="hero">
-      <div class="hero-card">
-        <span class="pill">Latest snapshot: 2026-05-09 06:42 UTC</span>
-        <h1>Insights over signals. Transparency over hype.</h1>
-        <p class="lead">A public-data-only BTCUSDT paper trader that shows exactly why it waits, enters, or exits. The goal is to learn market structure, risk, and discipline before any live trading is considered.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="data/snapshot.json">View raw JSON</a>
-          <a class="button secondary" href="https://github.com/pehur00">View GitHub</a>
+    <h1>Dashboard</h1>
+
+    <div class="panel">
+      <h2>Balance</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <label>Current Equity</label>
+          <value class="negative">894.39 USDT</value>
+        </div>
+        <div class="stat">
+          <label>Total PnL</label>
+          <value class="large negative">-105.61 (-10.6%)</value>
+        </div>
+        <div class="stat">
+          <label>Starting</label>
+          <value>1,000 USDT</value>
+        </div>
+        <div class="stat">
+          <label>Win Rate</label>
+          <value class="negative">0%</value>
         </div>
       </div>
-      <div class="panel chart">
-        <img src="assets/live_btcusdt.png" alt="BTCUSDT paper trader chart with support and resistance">
-        <div class="caption">Blue: recent price • Green: support • Orange: resistance • Red/Purple: SL/TP when active</div>
+      <div class="graph-container">
+        <svg viewBox="0 0 400 160" preserveAspectRatio="none">
+          <line x1="0" y1="13.3" x2="400" y2="13.3" stroke="#9497a9" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+    <text x="8" y="9.333333333333371" fill="#9497a9" font-size="10">Start: 1000</text>
+    <polygon points="0.0,33.2 57.1,52.8 114.3,72.2 171.4,91.2 228.6,109.3 285.7,127.1 342.9,146.7 400.0,146.7 400,160 0,160" fill="#d92d2022"/>
+    <polyline points="0.0,33.2 57.1,52.8 114.3,72.2 171.4,91.2 228.6,109.3 285.7,127.1 342.9,146.7 400.0,146.7" fill="none" stroke="#d92d20" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-    </section>
+    </div>
 
-    <section class="metrics">
-      <div class='metric'><span>Action</span><strong class='positive'>enter_long</strong></div>
-      <div class='metric'><span>Paper equity</span><strong class='negative'>938.29 USDT</strong></div>
-      <div class='metric'><span>Support / resistance</span><strong class='neutral'>80,210.45 / 80,361.11</strong></div>
-      <div class='metric'><span>Volume ratio</span><strong class='positive'>3.0531x</strong></div>
-      <div class='metric'><span>Confidence</span><strong class='neutral'>0.6656</strong></div>
-      <div class='metric'><span>Risk / reward</span><strong class='neutral'>1.53</strong></div>
-      <div class='metric'><span>Closed trades</span><strong class='neutral'>4</strong></div>
-      <div class='metric'><span>Progress mode</span><strong class='neutral'>defensive</strong></div>
-    </section>
+    <div class="panel">
+      <h2>Open Position</h2>
+      <div class='position-card'><div class='position-row'><div class='position-main'><span class='side-badge '>LONG</span><div class='position-details'><span>Qty: 0.11149785</span><span>Entry: 80,296</span><span>Current: 80,296</span></div></div><span class='position-pnl '>+0.00 (+0.0%)</span></div></div>
+    </div>
 
-    <section class="columns2">
-      <div class="panel">
-        <h2>Current interpretation</h2>
-        <p><span class="status ">Enter Long</span></p>
-        <p class="muted"><strong>Decision:</strong> Opened virtual long because signal confidence 0.6656 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.</p>
-        <p class="muted"><strong>Bot reasoning:</strong> Limit entry 0.1% above breakout: 80325 (resistance: 80361). Volume 3.05x (threshold: 0.75x), RSI: 35.3. Stop_loss: 45 (0.06%) below structure. Maker fee 0.01%.</p>
-        <p class="muted"><strong>Adaptation conclusion:</strong> Recent losing streak detected; reduce risk and require stronger confirmation.</p>
-        <p class='muted'><strong>Open paper position:</strong> long qty <code>0.08802418</code>, entry <code>80324.61437</code>, SL <code>80218.02</code>, TP <code>80284.6855</code>.</p>
+    <div class="panel">
+      <h2>Recent Trades</h2>
+      <div class="trades-container">
+        <div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,478→80,380</span><span class='pnl negative'>-15.77</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,478→80,380</span><span class='pnl negative'>-15.52</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,474→80,377</span><span class='pnl negative'>-15.34</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,474→80,377</span><span class='pnl negative'>-15.09</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,325→80,218</span><span class='pnl negative'>-14.33</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,325→80,218</span><span class='pnl negative'>-14.11</span></div><div class='trade-row'><span class='side negative'>LONG</span><span class='prices'>80,296→80,215</span><span class='pnl negative'>-15.47</span></div>
       </div>
-      <div class="panel">
-        <h2>How the bot thinks</h2>
-        <div class="explain">
-          <div class="rule"><h3>1. Define structure</h3><p class="muted">It calculates recent support and resistance from public 1m/5m candles.</p></div>
-          <div class="rule"><h3>2. Require volume</h3><p class="muted">Breakouts need volume confirmation. Current threshold: <code>1.8x</code> recent average volume.</p></div>
-          <div class="rule"><h3>3. Attach risk first</h3><p class="muted">Every virtual entry must have stop loss, take profit, risk/reward, and fixed risk sizing.</p></div>
-          <div class="rule"><h3>4. Learn from paper evidence</h3><p class="muted">Win rate, profit factor, and losing streaks change the progress mode, not emotions.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="columns2">
-      <div class="panel">
-        <h2>Recent paper trades</h2>
-        <div class='trade'><strong>long</strong><span>entry 80,477.90</span><span>exit 80,380.29</span><span class='negative'>-15.7655 USDT</span></div><div class='trade'><strong>long</strong><span>entry 80,477.90</span><span>exit 80,380.29</span><span class='negative'>-15.5170 USDT</span></div><div class='trade'><strong>long</strong><span>entry 80,473.92</span><span>exit 80,377.42</span><span class='negative'>-15.3360 USDT</span></div><div class='trade'><strong>long</strong><span>entry 80,473.92</span><span>exit 80,377.42</span><span class='negative'>-15.0932 USDT</span></div>
-      </div>
-      <div class="panel">
-        <h2>Safety & transparency</h2>
-        <p class="muted">This is not a live trading system. It has no API keys, no account access, no signed requests, no order placement, no leverage, and no transfer functionality.</p>
-        <p class="muted">The website is rebuilt from the latest public candles and local paper state. Use it as a learning journal, not financial advice.</p>
-        <p class="muted">Suggested risk from adaptation model: <code>0.5%</code> per virtual trade.</p>
-      </div>
-    </section>
+    </div>
 
     <footer>
-      Last generated from public market data at 2026-05-09 06:42 UTC. Not financial advice. Paper simulation only.
+      Updated: 2026-05-09 06:53 UTC • Paper only
     </footer>
   </div>
 </body>
