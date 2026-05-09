@@ -26,6 +26,9 @@
     header { margin-bottom: 32px; }
     h1 { font-size: 32px; margin: 0 0 8px; }
     .timestamp { color: var(--muted); font-size: 14px; }
+    .status-live { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--green-soft); color: var(--green); border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 8px; }
+    .status-live::before { content: ''; width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     
     .strategies-grid {
       display: grid;
@@ -110,7 +113,8 @@
   <div class="wrap">
     <header>
       <h1>🚀 BTCUSDT Multi-Strategy Dashboard</h1>
-      <div class="timestamp">Gegenereerd: 2026-05-09T13:10:47.101251+00:00</div>
+      <div class="timestamp">Gegenereerd: 2026-05-09T15:41:28.616887+00:00</div>
+      <div class="status-live">● Live Trading Actief - Updates elke 5 minuten</div>
     </header>
     
     <div class="strategies-grid">
@@ -124,7 +128,17 @@
                 </div>
             </div>
             
-            <div class="no-position">Geen open positie</div>
+            
+            <div class="position-card positive">
+                <h4>Open Positie</h4>
+                <div class="position-details">
+                    <span class="side">long</span>
+                    <span class="size">0.0380 BTC</span>
+                    <span class="entry">@ 80,588.65</span>
+                    <span class="pnl">PNL: +0.00 USDT (+0.00%)</span>
+                </div>
+            </div>
+            
             
             <div class="trades-section">
                 <h4>Laatste 10 Trades</h4>
@@ -188,7 +202,17 @@
                 </div>
             </div>
             
-            <div class="no-position">Geen open positie</div>
+            
+            <div class="position-card positive">
+                <h4>Open Positie</h4>
+                <div class="position-details">
+                    <span class="side">long</span>
+                    <span class="size">0.0533 BTC</span>
+                    <span class="entry">@ 80,588.65</span>
+                    <span class="pnl">PNL: +0.00 USDT (+0.00%)</span>
+                </div>
+            </div>
+            
             
             <div class="trades-section">
                 <h4>Laatste 10 Trades</h4>
@@ -220,7 +244,17 @@
                 </div>
             </div>
             
-            <div class="no-position">Geen open positie</div>
+            
+            <div class="position-card positive">
+                <h4>Open Positie</h4>
+                <div class="position-details">
+                    <span class="side">long</span>
+                    <span class="size">0.0380 BTC</span>
+                    <span class="entry">@ 80,588.65</span>
+                    <span class="pnl">PNL: +0.00 USDT (+0.00%)</span>
+                </div>
+            </div>
+            
             
             <div class="trades-section">
                 <h4>Laatste 10 Trades</h4>
