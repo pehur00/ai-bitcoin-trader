@@ -1,7 +1,23 @@
 {
   "account": {
-    "closed_trades": [],
-    "equity": 1000.0,
+    "closed_trades": [
+      {
+        "closed_at": 1778306100,
+        "entry": 80477.8975,
+        "exit_price": 80380.29,
+        "exit_reason": "stop_loss",
+        "fees_paid": 5.765537,
+        "opened_at": 1778306100,
+        "pnl": -15.765536,
+        "pnl_gross": -10.0,
+        "qty": 0.10245114,
+        "reasoning": "Virtual long closed by stop_loss; maker entry (0.01%) + taker exit (0.06%).",
+        "side": "long",
+        "stop_loss": 80380.29,
+        "symbol": "BTCUSDT"
+      }
+    ],
+    "equity": 984.2344637116626,
     "events": [
       {
         "reasoning": "Hold: price is not breaking support/resistance with enough volume confirmation. Volume ratio is 0.73x; required 1.80x.",
@@ -34,18 +50,33 @@
       {
         "reasoning": "Opened virtual long because signal confidence 0.4056 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
         "status": "opened"
+      },
+      {
+        "reasoning": "Virtual long closed by stop_loss; maker entry (0.01%) + taker exit (0.06%).",
+        "status": "stop_loss"
+      },
+      {
+        "reasoning": "Opened virtual long because signal confidence 0.4056 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+        "status": "opened"
       }
     ],
     "historical_performance": {
       "average_holding_duration_seconds": 0.0,
-      "daily_performance": [],
+      "daily_performance": [
+        {
+          "day": "2026-05-09",
+          "net_pnl": -15.765536,
+          "total_trades": 1,
+          "win_rate": 0.0
+        }
+      ],
       "peak_equity": 1000.0,
-      "trough_equity": 1000.0
+      "trough_equity": 984.234464
     },
     "open_position": {
       "entry": 80477.8975,
       "opened_at": 1778306100,
-      "qty": 0.10245114,
+      "qty": 0.10083595,
       "reasoning": "Limit entry 0.1% above breakout: 80478 (resistance: 80500). Volume 1.35x (threshold: 0.75x), RSI: 6.8. Stop_loss: 30 (0.04%) below structure. Maker fee 0.01%.",
       "side": "long",
       "stop_loss": 80380.29,
@@ -57,14 +88,14 @@
     "starting_cash": 1000.0
   },
   "adaptation": {
-    "closed_trades": 0,
+    "closed_trades": 1,
     "conclusion": "Not enough closed trades yet; keep collecting paper evidence.",
     "mode": "normal",
     "profit_factor": 0.0,
     "suggested_risk_per_trade_pct": 1.0,
     "win_rate": 0.0
   },
-  "chart_output": "_site-build/live_btcusdt.png",
+  "chart_output": "_dashboard-build/live_btcusdt_dashboard.png",
   "decision": {
     "reasoning": "Opened virtual long because signal confidence 0.4056 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
     "status": "opened"
