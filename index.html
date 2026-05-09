@@ -3,391 +3,385 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Multi-Coin Martingale Backtest — Ranking</title>
+  <title>Martingale Trader — Live Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green: #149e61;
-      --green-soft: rgba(20,158,97,0.12);
-      --red: #d92d20;
-      --red-soft: rgba(217,45,32,0.12);
-      --purple: #7132f5;
-      --text: #101114;
-      --muted: #686b82;
-      --border: #dedee5;
-      --surface: #ffffff;
-      --soft: #f7f7fb;
+      --green: #149e61; --green-soft: rgba(20,158,97,0.10);
+      --red: #d92d20; --red-soft: rgba(217,45,32,0.10);
+      --text: #101114; --muted: #686b82; --silver: #9497a9;
+      --border: #e8e8ed; --surface: #ffffff; --soft: #f5f5f8;
     }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: 'Inter', system-ui, sans-serif; background: var(--soft); color: var(--text); }
-    .wrap { max-width: 1400px; margin: 0 auto; padding: 32px 24px; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
     
-    header { margin-bottom: 40px; }
-    h1 { font-size: 36px; font-weight: 800; margin: 0 0 8px; letter-spacing: -0.04em; }
-    .subtitle { color: var(--muted); font-size: 16px; }
-    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--green-soft); color: var(--green); border-radius: 20px; font-size: 13px; font-weight: 600; margin-top: 12px; }
+    /* Header */
+    header { margin-bottom: 32px; }
+    h1 { font-size: 28px; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.03em; }
+    .subtitle { color: var(--muted); font-size: 15px; }
+    .live-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: var(--green-soft); color: var(--green); border-radius: 20px; font-size: 12px; font-weight: 600; margin-top: 10px; }
+    .live-pill::before { content: ''; width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
     
-    .ranking-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    
-    .rank-card {
+    /* Summary bar */
+    .summary { display: flex; gap: 20px; margin-bottom: 32px; }
+    .summary-card {
+      flex: 1;
       background: var(--surface);
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.2s;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
     }
-    .rank-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
-    .rank-card[data-rank="1"] { border-color: var(--green); }
-    .rank-card[data-rank="2"] { border-color: #c0a020; }
-    .rank-card[data-rank="3"] { border-color: #b08060; }
+    .summary-card .label { color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .summary-card .value { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; }
+    .summary-card .value.positive { color: var(--green); }
+    .summary-card .value.negative { color: var(--red); }
+    .summary-card .sub { font-size: 13px; color: var(--silver); margin-top: 4px; }
     
-    .rank-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    /* Balance graph */
+    .graph-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 32px; }
+    .graph-section h2 { font-size: 16px; margin: 0 0 20px; color: var(--muted); font-weight: 600; }
+    .graph-container { overflow-x: auto; }
+    
+    /* Symbol grid */
+    .symbols-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    
+    .symbol-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
       padding: 20px;
-      border-bottom: 1px solid var(--border);
     }
-    .medal { font-size: 28px; }
-    .coin { font-size: 22px; font-weight: 700; flex: 1; }
-    .pnl { font-size: 24px; font-weight: 800; }
-    .pnl.positive { color: var(--green); }
-    .pnl.negative { color: var(--red); }
-    
-    .rank-body { padding: 16px 20px; }
-    .stat-row {
+    .sym-header {
       display: flex;
       justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 14px;
+      align-items: flex-start;
+      margin-bottom: 12px;
     }
-    .stat-row:last-child { border-bottom: none; }
-    .stat-row span { color: var(--muted); }
-    .stat-row strong { font-weight: 600; }
-    .positive { color: var(--green); }
-    .negative { color: var(--red); }
+    .sym-name { font-size: 18px; font-weight: 700; }
+    .sym-equity { text-align: right; }
+    .sym-equity .amount { font-size: 22px; font-weight: 800; }
+    .sym-equity .change { font-size: 13px; font-weight: 600; }
+    .sym-stats { display: flex; gap: 16px; font-size: 12px; color: var(--muted); margin-bottom: 14px; }
     
-    .summary-section { margin-top: 40px; }
-    .summary-section h2 { font-size: 22px; margin: 0 0 20px; }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-      background: var(--surface);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    /* Open position */
+    .open-pos {
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
     }
-    th {
-      text-align: left;
-      padding: 14px 16px;
-      background: var(--soft);
-      color: var(--muted);
-      font-weight: 600;
+    .open-pos.positive { background: var(--green-soft); }
+    .open-pos.negative { background: var(--red-soft); }
+    .pos-title { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 6px; }
+    .pos-row { display: flex; justify-content: space-between; font-size: 14px; }
+    .pos-row.small { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .pos-row .side { font-weight: 700; }
+    .pos-row .pos-pnl { font-weight: 700; }
+    .no-pos { color: var(--muted); font-style: italic; font-size: 13px; padding: 8px 0; }
+    
+    /* Mini trades */
+    .last-trades { border-top: 1px solid var(--border); padding-top: 12px; }
+    .lt-title { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .mini-trade {
+      display: flex;
+      justify-content: space-between;
       font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
     }
-    td { padding: 14px 16px; border-bottom: 1px solid var(--border); }
+    .mini-trade:last-child { border-bottom: none; }
+    .mini-trade.positive { color: var(--green); }
+    .mini-trade.negative { color: var(--red); }
+    
+    /* Trades table */
+    .trades-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+    .trades-section h2 { font-size: 16px; margin: 0 0 20px; color: var(--muted); font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { text-align: left; padding: 12px 14px; background: var(--soft); color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid var(--border); }
+    td { padding: 12px 14px; border-bottom: 1px solid var(--border); }
     tr:last-child td { border-bottom: none; }
-    .coin-cell { font-weight: 700; font-size: 15px; }
+    .coin-cell { font-weight: 700; }
+    .positive { color: var(--green); font-weight: 600; }
+    .negative { color: var(--red); font-weight: 600; }
+    .muted { color: var(--muted); font-style: italic; }
     
-    .insight {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 32px;
-      border-left: 4px solid var(--purple);
-    }
-    .insight h3 { margin: 0 0 12px; }
-    .insight p { margin: 0; color: var(--muted); line-height: 1.6; }
-    
-    footer { margin-top: 40px; color: var(--muted); font-size: 13px; text-align: center; }
+    footer { margin-top: 40px; color: var(--silver); font-size: 12px; text-align: center; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1>🏆 Multi-Coin Martingale Rankings</h1>
-      <p class="subtitle">Short + Long strategy backtest over 1 jaar historische data</p>
-      <div class="pill">✓ 5 coins getest • Updates automatisch</div>
+      <h1>📊 Martingale Trader Dashboard</h1>
+      <p class="subtitle">Multi-symbol paper trading — Short + Long Martingale</p>
+      <div class="live-pill">Live • 5 symbols • 2026-05-09 22:24:15</div>
     </header>
     
-    <div class="ranking-grid">
+    <!-- Summary -->
+    <div class="summary">
+      <div class="summary-card">
+        <div class="label">Total Equity</div>
+        <div class="value positive">500.00 USDT</div>
+        <div class="sub">Started: 500.00</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Total PnL</div>
+        <div class="value positive">+0.00 USDT</div>
+        <div class="sub">+0.00% return</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Total Trades</div>
+        <div class="value">0</div>
+        <div class="sub">Across 5 symbols</div>
+      </div>
+    </div>
+    
+    <!-- Balance Graph -->
+    <div class="graph-section">
+      <h2>📈 Balance per Symbol</h2>
+      <div class="graph-container">
+        
+    <svg width="740" height="200" viewBox="0 0 740 200">
+        <rect width="100%" height="100%" fill="transparent"/>
+        
+        <rect x="20" y="20.0" width="120" height="160.0" fill="#149e61" rx="4"/>
+        <rect x="20" y="20.0" width="120" height="3" fill="#9497a9" rx="1"/>
+        
+        <rect x="160" y="20.0" width="120" height="160.0" fill="#149e61" rx="4"/>
+        <rect x="160" y="20.0" width="120" height="3" fill="#9497a9" rx="1"/>
+        
+        <rect x="300" y="20.0" width="120" height="160.0" fill="#149e61" rx="4"/>
+        <rect x="300" y="20.0" width="120" height="3" fill="#9497a9" rx="1"/>
+        
+        <rect x="440" y="20.0" width="120" height="160.0" fill="#149e61" rx="4"/>
+        <rect x="440" y="20.0" width="120" height="3" fill="#9497a9" rx="1"/>
+        
+        <rect x="580" y="20.0" width="120" height="160.0" fill="#149e61" rx="4"/>
+        <rect x="580" y="20.0" width="120" height="3" fill="#9497a9" rx="1"/>
+        
+        
+        <text x="80.0" y="195" text-anchor="middle" fill="#686b82" font-size="12" font-weight="600">BTCUSDT</text>
+        <text x="80.0" y="12.0" text-anchor="middle" fill="#149e61" font-size="11" font-weight="700">+0.0%</text>
+        
+        <text x="220.0" y="195" text-anchor="middle" fill="#686b82" font-size="12" font-weight="600">SUIUSDT</text>
+        <text x="220.0" y="12.0" text-anchor="middle" fill="#149e61" font-size="11" font-weight="700">+0.0%</text>
+        
+        <text x="360.0" y="195" text-anchor="middle" fill="#686b82" font-size="12" font-weight="600">ADAUSDT</text>
+        <text x="360.0" y="12.0" text-anchor="middle" fill="#149e61" font-size="11" font-weight="700">+0.0%</text>
+        
+        <text x="500.0" y="195" text-anchor="middle" fill="#686b82" font-size="12" font-weight="600">SOLUSDT</text>
+        <text x="500.0" y="12.0" text-anchor="middle" fill="#149e61" font-size="11" font-weight="700">+0.0%</text>
+        
+        <text x="640.0" y="195" text-anchor="middle" fill="#686b82" font-size="12" font-weight="600">LINKUSDT</text>
+        <text x="640.0" y="12.0" text-anchor="middle" fill="#149e61" font-size="11" font-weight="700">+0.0%</text>
+        
+    </svg>
+    
+      </div>
+    </div>
+    
+    <!-- Symbol Cards -->
+    <div class="symbols-grid">
       
-        <div class="rank-card positive" data-rank="1">
-            <div class="rank-header">
-                <span class="medal">🥇</span>
-                <span class="coin">ADAUSDT</span>
-                <span class="pnl positive">+7.2%</span>
-            </div>
-            <div class="rank-body">
-                <div class="stat-row">
-                    <span>Equity</span>
-                    <strong>107 USDT</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Trades</span>
-                    <strong>286 (37% win)</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Long / Short</span>
-                    <strong>133 / 153</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Long PnL</span>
-                    <strong class="negative">-9.0%</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Short PnL</span>
-                    <strong class="positive">+18.2%</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Max DD</span>
-                    <strong class="negative">-13.3%</strong>
+        <div class="symbol-card">
+            <div class="sym-header">
+                <div class="sym-name">BTCUSDT</div>
+                <div class="sym-equity positive">
+                    <div class="amount">100.00</div>
+                    <div class="change">+0.00 (+0.0%)</div>
                 </div>
             </div>
-        </div>
-        
-        <div class="rank-card positive" data-rank="2">
-            <div class="rank-header">
-                <span class="medal">🥈</span>
-                <span class="coin">SOLUSDT</span>
-                <span class="pnl positive">+6.3%</span>
+            
+            <div class="sym-stats">
+                <span>0 trades</span>
+                <span>0% win</span>
             </div>
-            <div class="rank-body">
-                <div class="stat-row">
-                    <span>Equity</span>
-                    <strong>106 USDT</strong>
+            
+            
+            <div class="open-pos positive">
+                <div class="pos-title">OPEN POSITION</div>
+                <div class="pos-row">
+                    <span class="side">LONG</span>
+                    <span class="pos-pnl">+0.00 USDT</span>
                 </div>
-                <div class="stat-row">
-                    <span>Trades</span>
-                    <strong>252 (36% win)</strong>
+                <div class="pos-row small">
+                    <span>Entry: 80,760.23</span>
+                    <span>Qty: 0.0002</span>
                 </div>
-                <div class="stat-row">
-                    <span>Long / Short</span>
-                    <strong>123 / 129</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Long PnL</span>
-                    <strong class="positive">+0.9%</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Short PnL</span>
-                    <strong class="positive">+7.2%</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Max DD</span>
-                    <strong class="negative">-17.9%</strong>
-                </div>
+            </div>
+            
+            
+            <div class="last-trades">
+                <div class="lt-title">Last 3 trades</div>
+                <div class="muted">No trades yet</div>
             </div>
         </div>
         
-        <div class="rank-card positive" data-rank="3">
-            <div class="rank-header">
-                <span class="medal">🥉</span>
-                <span class="coin">BTCUSDT</span>
-                <span class="pnl positive">+2.9%</span>
-            </div>
-            <div class="rank-body">
-                <div class="stat-row">
-                    <span>Equity</span>
-                    <strong>103 USDT</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Trades</span>
-                    <strong>75 (40% win)</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Long / Short</span>
-                    <strong>35 / 40</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Long PnL</span>
-                    <strong class="positive">+0.4%</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Short PnL</span>
-                    <strong class="positive">+2.9%</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Max DD</span>
-                    <strong class="negative">-7.2%</strong>
+        <div class="symbol-card">
+            <div class="sym-header">
+                <div class="sym-name">SUIUSDT</div>
+                <div class="sym-equity positive">
+                    <div class="amount">100.00</div>
+                    <div class="change">+0.00 (+0.0%)</div>
                 </div>
             </div>
-        </div>
-        
-        <div class="rank-card negative" data-rank="4">
-            <div class="rank-header">
-                <span class="medal">#4</span>
-                <span class="coin">LINKUSDT</span>
-                <span class="pnl negative">-2.8%</span>
+            
+            <div class="sym-stats">
+                <span>0 trades</span>
+                <span>0% win</span>
             </div>
-            <div class="rank-body">
-                <div class="stat-row">
-                    <span>Equity</span>
-                    <strong>97 USDT</strong>
+            
+            
+            <div class="open-pos positive">
+                <div class="pos-title">OPEN POSITION</div>
+                <div class="pos-row">
+                    <span class="side">LONG</span>
+                    <span class="pos-pnl">+0.00 USDT</span>
                 </div>
-                <div class="stat-row">
-                    <span>Trades</span>
-                    <strong>271 (33% win)</strong>
+                <div class="pos-row small">
+                    <span>Entry: 1.07</span>
+                    <span>Qty: 18.6724</span>
                 </div>
-                <div class="stat-row">
-                    <span>Long / Short</span>
-                    <strong>135 / 136</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Long PnL</span>
-                    <strong class="negative">-8.9%</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Short PnL</span>
-                    <strong class="positive">+8.0%</strong>
-                </div>
-                <div class="stat-row">
-                    <span>Max DD</span>
-                    <strong class="negative">-18.4%</strong>
-                </div>
+            </div>
+            
+            
+            <div class="last-trades">
+                <div class="lt-title">Last 3 trades</div>
+                <div class="muted">No trades yet</div>
             </div>
         </div>
         
-        <div class="rank-card negative" data-rank="5">
-            <div class="rank-header">
-                <span class="medal">#5</span>
-                <span class="coin">SUIUSDT</span>
-                <span class="pnl negative">-4.8%</span>
+        <div class="symbol-card">
+            <div class="sym-header">
+                <div class="sym-name">ADAUSDT</div>
+                <div class="sym-equity positive">
+                    <div class="amount">100.00</div>
+                    <div class="change">+0.00 (+0.0%)</div>
+                </div>
             </div>
-            <div class="rank-body">
-                <div class="stat-row">
-                    <span>Equity</span>
-                    <strong>95 USDT</strong>
+            
+            <div class="sym-stats">
+                <span>0 trades</span>
+                <span>0% win</span>
+            </div>
+            
+            
+            <div class="open-pos positive">
+                <div class="pos-title">OPEN POSITION</div>
+                <div class="pos-row">
+                    <span class="side">LONG</span>
+                    <span class="pos-pnl">+0.00 USDT</span>
                 </div>
-                <div class="stat-row">
-                    <span>Trades</span>
-                    <strong>342 (34% win)</strong>
+                <div class="pos-row small">
+                    <span>Entry: 0.27</span>
+                    <span>Qty: 73.4214</span>
                 </div>
-                <div class="stat-row">
-                    <span>Long / Short</span>
-                    <strong>167 / 175</strong>
+            </div>
+            
+            
+            <div class="last-trades">
+                <div class="lt-title">Last 3 trades</div>
+                <div class="muted">No trades yet</div>
+            </div>
+        </div>
+        
+        <div class="symbol-card">
+            <div class="sym-header">
+                <div class="sym-name">SOLUSDT</div>
+                <div class="sym-equity positive">
+                    <div class="amount">100.00</div>
+                    <div class="change">+0.00 (+0.0%)</div>
                 </div>
-                <div class="stat-row">
-                    <span>Long PnL</span>
-                    <strong class="negative">-5.6%</strong>
+            </div>
+            
+            <div class="sym-stats">
+                <span>0 trades</span>
+                <span>0% win</span>
+            </div>
+            
+            
+            <div class="open-pos positive">
+                <div class="pos-title">OPEN POSITION</div>
+                <div class="pos-row">
+                    <span class="side">LONG</span>
+                    <span class="pos-pnl">+0.00 USDT</span>
                 </div>
-                <div class="stat-row">
-                    <span>Short PnL</span>
-                    <strong class="positive">+3.3%</strong>
+                <div class="pos-row small">
+                    <span>Entry: 93.37</span>
+                    <span>Qty: 0.2142</span>
                 </div>
-                <div class="stat-row">
-                    <span>Max DD</span>
-                    <strong class="negative">-20.0%</strong>
+            </div>
+            
+            
+            <div class="last-trades">
+                <div class="lt-title">Last 3 trades</div>
+                <div class="muted">No trades yet</div>
+            </div>
+        </div>
+        
+        <div class="symbol-card">
+            <div class="sym-header">
+                <div class="sym-name">LINKUSDT</div>
+                <div class="sym-equity positive">
+                    <div class="amount">100.00</div>
+                    <div class="change">+0.00 (+0.0%)</div>
                 </div>
+            </div>
+            
+            <div class="sym-stats">
+                <span>0 trades</span>
+                <span>0% win</span>
+            </div>
+            
+            
+            <div class="open-pos positive">
+                <div class="pos-title">OPEN POSITION</div>
+                <div class="pos-row">
+                    <span class="side">LONG</span>
+                    <span class="pos-pnl">+0.00 USDT</span>
+                </div>
+                <div class="pos-row small">
+                    <span>Entry: 10.41</span>
+                    <span>Qty: 1.9212</span>
+                </div>
+            </div>
+            
+            
+            <div class="last-trades">
+                <div class="lt-title">Last 3 trades</div>
+                <div class="muted">No trades yet</div>
             </div>
         </div>
         
     </div>
     
-    <div class="summary-section">
-      <h2>📊 Volledig Overzicht</h2>
+    <!-- Recent Trades -->
+    <div class="trades-section">
+      <h2>📝 Last 10 Trades (All Symbols)</h2>
       <table>
         <thead>
           <tr>
-            <th>Coin</th>
-            <th>Total PnL</th>
-            <th>Equity</th>
-            <th>Trades</th>
-            <th>Win Rate</th>
-            <th>Long/Short</th>
-            <th>Long PnL</th>
-            <th>Short PnL</th>
-            <th>Max DD</th>
+            <th>Symbol</th>
+            <th>Side</th>
+            <th>Entry</th>
+            <th>Exit</th>
+            <th>PnL</th>
+            <th>Reason</th>
           </tr>
         </thead>
         <tbody>
-          
-        <tr>
-            <td class="coin-cell">ADAUSDT</td>
-            <td class="positive">+7.2%</td>
-            <td>107</td>
-            <td>286</td>
-            <td>37%</td>
-            <td>133 / 153</td>
-            <td class="negative">-9.0%</td>
-            <td class="positive">+18.2%</td>
-            <td class="negative">-13.3%</td>
-        </tr>
-        
-        <tr>
-            <td class="coin-cell">SOLUSDT</td>
-            <td class="positive">+6.3%</td>
-            <td>106</td>
-            <td>252</td>
-            <td>36%</td>
-            <td>123 / 129</td>
-            <td class="positive">+0.9%</td>
-            <td class="positive">+7.2%</td>
-            <td class="negative">-17.9%</td>
-        </tr>
-        
-        <tr>
-            <td class="coin-cell">BTCUSDT</td>
-            <td class="positive">+2.9%</td>
-            <td>103</td>
-            <td>75</td>
-            <td>40%</td>
-            <td>35 / 40</td>
-            <td class="positive">+0.4%</td>
-            <td class="positive">+2.9%</td>
-            <td class="negative">-7.2%</td>
-        </tr>
-        
-        <tr>
-            <td class="coin-cell">LINKUSDT</td>
-            <td class="negative">-2.8%</td>
-            <td>97</td>
-            <td>271</td>
-            <td>33%</td>
-            <td>135 / 136</td>
-            <td class="negative">-8.9%</td>
-            <td class="positive">+8.0%</td>
-            <td class="negative">-18.4%</td>
-        </tr>
-        
-        <tr>
-            <td class="coin-cell">SUIUSDT</td>
-            <td class="negative">-4.8%</td>
-            <td>95</td>
-            <td>342</td>
-            <td>34%</td>
-            <td>167 / 175</td>
-            <td class="negative">-5.6%</td>
-            <td class="positive">+3.3%</td>
-            <td class="negative">-20.0%</td>
-        </tr>
-        
+          <tr><td colspan="6" class="muted">No trades yet</td></tr>
         </tbody>
       </table>
     </div>
     
-    <div class="insight">
-      <h3>💡 Key Insights</h3>
-      <p>
-        <strong>Beste performer:</strong> ADAUSDT met +7.2% winst <br>
-        <strong>Meeste trades:</strong> SUIUSDT (342 trades) <br>
-        <strong>Laagste drawdown:</strong> BTCUSDT (7.2%) <br>
-        <strong>Short trades winst:</strong> 39.5% gecombineerd
-      </p>
-    </div>
-    
     <footer>
-      Backtest: 2026-05-09 22:20 UTC • Martingale SL/TP 3%/6% • 10% risk per trade • 0.07% fee
+      Paper trading only • Martingale Short + Long • 4h updates
     </footer>
   </div>
 </body>
