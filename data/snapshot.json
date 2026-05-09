@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-09T15:41:28.616887+00:00",
+  "generated_at": "2026-05-09T16:37:35.795563+00:00",
   "strategies": [
     {
       "account": {
@@ -25,6 +25,66 @@
           {
             "reasoning": "Opened virtual long because signal confidence 0.3735 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
             "status": "opened"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
           },
           {
             "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
@@ -105,27 +165,43 @@
       },
       "signal": {
         "action": "enter_long",
-        "confidence": 0.3735,
-        "entry": 80588.64814,
+        "confidence": 0.4614,
+        "entry": 80706.5259,
         "entry_offset_pct": 0.001,
-        "generated_at": 1778340900,
+        "generated_at": 1778344200,
         "order_type": "limit",
-        "reasoning": "Breakout long: volume 1.27x, RSI 63.7, ATR 75.76",
-        "resistance": 80476.96,
+        "reasoning": "Breakout long: volume 1.67x, RSI 73.7, ATR 83.06",
+        "resistance": 80768.45,
         "risk_reward": 1.5,
-        "stop_loss": 80325.43428571,
+        "stop_loss": 80602.33,
         "support": 80212.63,
         "symbol": "BTCUSDT",
-        "take_profit": 80782.19857143,
+        "take_profit": 80750.49,
         "timeframe": "5m",
-        "volume_ratio": 1.2719
+        "volume_ratio": 1.6734
       },
       "strategy_name": "Breakout"
     },
     {
       "account": {
-        "closed_trades": [],
-        "equity": 1000.0,
+        "closed_trades": [
+          {
+            "closed_at": 1778343900,
+            "entry": 80689.525055,
+            "exit_price": 80737.68214286,
+            "exit_reason": "stop_loss",
+            "fees_paid": 11.734838,
+            "opened_at": 1778343600,
+            "pnl": -21.734838,
+            "pnl_gross": -10.0,
+            "qty": 0.20765375,
+            "reasoning": "Virtual short closed by stop_loss; maker entry (0.01%) + taker exit (0.06%).",
+            "side": "short",
+            "stop_loss": 80737.68214286,
+            "symbol": "BTCUSDT"
+          }
+        ],
+        "equity": 978.2651623924911,
         "events": [
           {
             "reasoning": "RSI 54.6 niet extreem genoeg (buy<25, sell>75)",
@@ -158,30 +234,112 @@
           {
             "reasoning": "RSI 63.7 niet extreem genoeg (buy<25, sell>75)",
             "status": "hold"
+          },
+          {
+            "reasoning": "RSI 67.4 niet extreem genoeg (buy<25, sell>75)",
+            "status": "hold"
+          },
+          {
+            "reasoning": "RSI 68.1 niet extreem genoeg (buy<25, sell>75)",
+            "status": "hold"
+          },
+          {
+            "reasoning": "RSI 71.3 niet extreem genoeg (buy<25, sell>75)",
+            "status": "hold"
+          },
+          {
+            "reasoning": "RSI 67.1 niet extreem genoeg (buy<25, sell>75)",
+            "status": "hold"
+          },
+          {
+            "reasoning": "RSI 67.3 niet extreem genoeg (buy<25, sell>75)",
+            "status": "hold"
+          },
+          {
+            "reasoning": "RSI 69.2 niet extreem genoeg (buy<25, sell>75)",
+            "status": "hold"
+          },
+          {
+            "reasoning": "RSI 71.1 niet extreem genoeg (buy<25, sell>75)",
+            "status": "hold"
+          },
+          {
+            "reasoning": "RSI 71.8 niet extreem genoeg (buy<25, sell>75)",
+            "status": "hold"
+          },
+          {
+            "reasoning": "Opened virtual short because signal confidence 0.4798 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+            "status": "opened"
+          },
+          {
+            "reasoning": "Virtual short closed by stop_loss; maker entry (0.01%) + taker exit (0.06%).",
+            "status": "stop_loss"
+          },
+          {
+            "reasoning": "Opened virtual short because signal confidence 0.6046 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+            "status": "opened"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
           }
         ],
         "historical_performance": {
-          "average_holding_duration_seconds": 0.0,
-          "daily_performance": [],
+          "average_holding_duration_seconds": 300,
+          "daily_performance": [
+            {
+              "day": "2026-05-09",
+              "net_pnl": -21.734838,
+              "total_trades": 1,
+              "win_rate": 0.0
+            }
+          ],
           "peak_equity": 1000.0,
-          "trough_equity": 1000.0
+          "trough_equity": 978.265162
         },
-        "open_position": null,
+        "open_position": {
+          "entry": 80615.522075,
+          "opened_at": 1778343900,
+          "qty": 0.04720493,
+          "reasoning": "Mean reversion short: RSI 85.2 (overbought), positie 84.0% in range",
+          "side": "short",
+          "stop_loss": 80822.76,
+          "symbol": "BTCUSDT",
+          "take_profit": 80322.03
+        },
         "paper_trading_only": true,
         "risk_per_trade_pct": 1.0,
         "starting_cash": 1000.0
       },
       "adaptation": {
-        "closed_trades": 0,
-        "conclusion": "Verzamel meer data (0/30 trades). Risico beperkt tot 0.50%.",
+        "closed_trades": 1,
+        "conclusion": "Verzamel meer data (1/30 trades). Risico beperkt tot 0.50%.",
         "drawdown_analysis": {
-          "current_drawdown": 0.0,
-          "current_drawdown_pct": 0.0,
-          "max_drawdown": 0.0,
-          "max_drawdown_pct": 0.0,
-          "recovery_factor": 0.0
+          "current_drawdown": 21.734838,
+          "current_drawdown_pct": 2.1735,
+          "current_equity": 978.265162,
+          "max_drawdown": 21.734838,
+          "max_drawdown_pct": 2.1735,
+          "peak_equity": 1000.0,
+          "recovery_factor": -1.0
         },
-        "expectancy": 0.0,
+        "expectancy": -21.734838,
         "mode": "data_gathering",
         "profit_factor": 0.0,
         "regime_detection": {
@@ -192,19 +350,19 @@
         "rolling_windows": {
           "window_100": {
             "available": false,
-            "reason": "Onvoldoende trades (0 < 100)"
+            "reason": "Onvoldoende trades (1 < 100)"
           },
           "window_200": {
             "available": false,
-            "reason": "Onvoldoende trades (0 < 200)"
+            "reason": "Onvoldoende trades (1 < 200)"
           },
           "window_50": {
             "available": false,
-            "reason": "Onvoldoende trades (0 < 50)"
+            "reason": "Onvoldoende trades (1 < 50)"
           }
         },
         "statistical_significance": {
-          "min_samples_needed": 30,
+          "min_samples_needed": 29,
           "reason": "Onvoldoende samples voor statistische analyse (minimaal 30 trades vereist)",
           "significant": false
         },
@@ -212,17 +370,17 @@
         "win_rate": 0.0
       },
       "decision": {
-        "reasoning": "RSI 63.7 niet extreem genoeg (buy<25, sell>75)",
-        "status": "hold"
+        "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+        "status": "ignored_existing_position"
       },
       "signal": {
         "action": "hold",
         "confidence": 0.0,
-        "entry": 80508.14,
+        "entry": 80625.9,
         "entry_offset_pct": 0.001,
-        "generated_at": 1778340900,
+        "generated_at": 1778344200,
         "order_type": "limit",
-        "reasoning": "RSI 63.7 niet extreem genoeg (buy<25, sell>75)",
+        "reasoning": "RSI 73.7 niet extreem genoeg (buy<25, sell>75)",
         "resistance": 0.0,
         "risk_reward": 0.0,
         "stop_loss": 0.0,
@@ -236,8 +394,24 @@
     },
     {
       "account": {
-        "closed_trades": [],
-        "equity": 1000.0,
+        "closed_trades": [
+          {
+            "closed_at": 1778343600,
+            "entry": 80588.64814,
+            "exit_price": 80722.02571429,
+            "exit_reason": "take_profit",
+            "fees_paid": 0.860549,
+            "opened_at": 1778340900,
+            "pnl": 6.254782,
+            "pnl_gross": 7.115331,
+            "qty": 0.05334728,
+            "reasoning": "Virtual long closed by take_profit; maker entry (0.01%) + maker exit (0.01%).",
+            "side": "long",
+            "stop_loss": 80401.19714286,
+            "symbol": "BTCUSDT"
+          }
+        ],
+        "equity": 1006.2547822328595,
         "events": [
           {
             "reasoning": "Geen conservatief setup: volume 0.64x, RSI 54.6",
@@ -270,41 +444,105 @@
           {
             "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
             "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "Virtual long closed by take_profit; maker entry (0.01%) + maker exit (0.01%).",
+            "status": "take_profit"
+          },
+          {
+            "reasoning": "Geen conservatief setup: volume 0.37x, RSI 84.1",
+            "status": "hold"
+          },
+          {
+            "reasoning": "Geen conservatief setup: volume 0.51x, RSI 85.2",
+            "status": "hold"
+          },
+          {
+            "reasoning": "Geen conservatief setup: volume 1.66x, RSI 73.7",
+            "status": "hold"
+          },
+          {
+            "reasoning": "Geen conservatief setup: volume 1.66x, RSI 73.7",
+            "status": "hold"
+          },
+          {
+            "reasoning": "Geen conservatief setup: volume 1.66x, RSI 73.7",
+            "status": "hold"
+          },
+          {
+            "reasoning": "Geen conservatief setup: volume 1.66x, RSI 73.7",
+            "status": "hold"
+          },
+          {
+            "reasoning": "Geen conservatief setup: volume 1.66x, RSI 73.7",
+            "status": "hold"
           }
         ],
         "historical_performance": {
-          "average_holding_duration_seconds": 0.0,
-          "daily_performance": [],
-          "peak_equity": 1000.0,
+          "average_holding_duration_seconds": 2700,
+          "daily_performance": [
+            {
+              "day": "2026-05-09",
+              "net_pnl": 6.254782,
+              "total_trades": 1,
+              "win_rate": 1.0
+            }
+          ],
+          "peak_equity": 1006.254782,
           "trough_equity": 1000.0
         },
-        "open_position": {
-          "entry": 80588.64814,
-          "opened_at": 1778340900,
-          "qty": 0.05334728,
-          "reasoning": "Conservatief long: volume 1.34x, RSI 63.7, confidence 0.68",
-          "side": "long",
-          "stop_loss": 80401.19714286,
-          "symbol": "BTCUSDT",
-          "take_profit": 80722.02571429
-        },
+        "open_position": null,
         "paper_trading_only": true,
         "risk_per_trade_pct": 1.0,
         "starting_cash": 1000.0
       },
       "adaptation": {
-        "closed_trades": 0,
-        "conclusion": "Verzamel meer data (0/30 trades). Risico beperkt tot 0.50%.",
+        "closed_trades": 1,
+        "conclusion": "Verzamel meer data (1/30 trades). Risico beperkt tot 0.50%.",
         "drawdown_analysis": {
           "current_drawdown": 0.0,
           "current_drawdown_pct": 0.0,
+          "current_equity": 1006.254782,
           "max_drawdown": 0.0,
           "max_drawdown_pct": 0.0,
+          "peak_equity": 1006.254782,
           "recovery_factor": 0.0
         },
-        "expectancy": 0.0,
+        "expectancy": 6.254782,
         "mode": "data_gathering",
-        "profit_factor": 0.0,
+        "profit_factor": "inf",
         "regime_detection": {
           "confidence": 0.0,
           "reason": "Onvoldoende trades voor regime detection (minimaal 20 vereist)",
@@ -313,45 +551,45 @@
         "rolling_windows": {
           "window_100": {
             "available": false,
-            "reason": "Onvoldoende trades (0 < 100)"
+            "reason": "Onvoldoende trades (1 < 100)"
           },
           "window_200": {
             "available": false,
-            "reason": "Onvoldoende trades (0 < 200)"
+            "reason": "Onvoldoende trades (1 < 200)"
           },
           "window_50": {
             "available": false,
-            "reason": "Onvoldoende trades (0 < 50)"
+            "reason": "Onvoldoende trades (1 < 50)"
           }
         },
         "statistical_significance": {
-          "min_samples_needed": 30,
+          "min_samples_needed": 29,
           "reason": "Onvoldoende samples voor statistische analyse (minimaal 30 trades vereist)",
           "significant": false
         },
         "suggested_risk_per_trade_pct": 0.5,
-        "win_rate": 0.0
+        "win_rate": 1.0
       },
       "decision": {
-        "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
-        "status": "ignored_existing_position"
+        "reasoning": "Geen conservatief setup: volume 1.66x, RSI 73.7",
+        "status": "hold"
       },
       "signal": {
-        "action": "enter_long",
-        "confidence": 0.6792,
-        "entry": 80588.64814,
+        "action": "hold",
+        "confidence": 0.0,
+        "entry": 80625.9,
         "entry_offset_pct": 0.001,
-        "generated_at": 1778340900,
+        "generated_at": 1778344200,
         "order_type": "limit",
-        "reasoning": "Conservatief long: volume 1.34x, RSI 63.7, confidence 0.68",
-        "resistance": 80476.96,
-        "risk_reward": 2.0,
-        "stop_loss": 80401.19714286,
-        "support": 80212.63,
+        "reasoning": "Geen conservatief setup: volume 1.66x, RSI 73.7",
+        "resistance": 0.0,
+        "risk_reward": 0.0,
+        "stop_loss": 0.0,
+        "support": 0.0,
         "symbol": "BTCUSDT",
-        "take_profit": 80722.02571429,
+        "take_profit": 0.0,
         "timeframe": "5m",
-        "volume_ratio": 1.3356
+        "volume_ratio": 0.0
       },
       "strategy_name": "Conservative"
     },
@@ -391,6 +629,66 @@
           {
             "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
             "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
+          },
+          {
+            "reasoning": "A virtual position is already open, so the trader will not stack exposure.",
+            "status": "ignored_existing_position"
           }
         ],
         "historical_performance": {
@@ -459,20 +757,20 @@
       },
       "signal": {
         "action": "enter_long",
-        "confidence": 0.3735,
-        "entry": 80588.64814,
+        "confidence": 1.0,
+        "entry": 80625.9,
         "entry_offset_pct": 0.001,
-        "generated_at": 1778340900,
+        "generated_at": 1778344200,
         "order_type": "limit",
-        "reasoning": "Breakout long: volume 1.27x, RSI 63.7, ATR 75.76",
-        "resistance": 80476.96,
-        "risk_reward": 1.5,
-        "stop_loss": 80325.43428571,
-        "support": 80212.63,
+        "reasoning": "Always-Long strategie: ga altijd long ongeacht condities",
+        "resistance": 81432.159,
+        "risk_reward": 1.0,
+        "stop_loss": 79013.382,
+        "support": 79819.64099999999,
         "symbol": "BTCUSDT",
-        "take_profit": 80782.19857143,
+        "take_profit": 82238.41799999999,
         "timeframe": "5m",
-        "volume_ratio": 1.2719
+        "volume_ratio": 1.0
       },
       "strategy_name": "Martingale"
     }
