@@ -358,6 +358,22 @@
       {
         "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.33x (threshold: 0.75x), RSI: 35.2.",
         "status": "hold"
+      },
+      {
+        "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.46x (threshold: 0.75x), RSI: 57.8.",
+        "status": "hold"
+      },
+      {
+        "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.46x (threshold: 0.75x), RSI: 57.8.",
+        "status": "hold"
+      },
+      {
+        "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.16x (threshold: 0.75x), RSI: 33.9.",
+        "status": "hold"
+      },
+      {
+        "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.16x (threshold: 0.75x), RSI: 33.9.",
+        "status": "hold"
       }
     ],
     "historical_performance": {
@@ -422,26 +438,26 @@
   },
   "chart_output": "_dashboard-build/live_btcusdt_dashboard.png",
   "decision": {
-    "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.33x (threshold: 0.75x), RSI: 35.2.",
+    "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.16x (threshold: 0.75x), RSI: 33.9.",
     "status": "hold"
   },
   "paper_trading_only": true,
   "signal": {
     "action": "hold",
     "confidence": 0.0,
-    "entry": 80319.5,
+    "entry": 80864.0,
     "entry_offset_pct": 0.001,
-    "generated_at": 1778328780,
+    "generated_at": 1778357460,
     "order_type": "limit",
-    "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.33x (threshold: 0.75x), RSI: 35.2.",
-    "resistance": 80389.03,
+    "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.16x (threshold: 0.75x), RSI: 33.9.",
+    "resistance": 80960.96,
     "risk_reward": 0.0,
     "stop_loss": 0.0,
-    "support": 80296.85,
+    "support": 80859.95,
     "symbol": "BTCUSDT",
     "take_profit": 0.0,
     "timeframe": "1m",
-    "volume_ratio": 0.3275
+    "volume_ratio": 0.1611
   },
   "state_file": ".state/live_btcusdt_paper.json"
 }
