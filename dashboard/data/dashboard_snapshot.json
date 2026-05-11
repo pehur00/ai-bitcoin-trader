@@ -330,9 +330,39 @@
         "side": "long",
         "stop_loss": 80750.87,
         "symbol": "BTCUSDT"
+      },
+      {
+        "closed_at": 1778503920,
+        "entry": 80846.35559,
+        "exit_price": 80812.263,
+        "exit_reason": "take_profit",
+        "fees_paid": 1.278354,
+        "opened_at": 1778490120,
+        "pnl": -3.974305,
+        "pnl_gross": -2.695952,
+        "qty": 0.07907735,
+        "reasoning": "Virtual long closed by take_profit; maker entry (0.01%) + maker exit (0.01%).",
+        "side": "long",
+        "stop_loss": 80750.87,
+        "symbol": "BTCUSDT"
+      },
+      {
+        "closed_at": 1778503920,
+        "entry": 81145.97491,
+        "exit_price": 81041.91,
+        "exit_reason": "stop_loss",
+        "fees_paid": 4.095256,
+        "opened_at": 1778503920,
+        "pnl": -11.606261,
+        "pnl_gross": -7.511005,
+        "qty": 0.07217615,
+        "reasoning": "Virtual long closed by stop_loss; maker entry (0.01%) + taker exit (0.06%).",
+        "side": "long",
+        "stop_loss": 81041.91,
+        "symbol": "BTCUSDT"
       }
     ],
-    "equity": 755.0747357307047,
+    "equity": 739.4941697515278,
     "events": [
       {
         "reasoning": "Hold: price is not breaking support/resistance with enough volume confirmation. Volume ratio is 0.73x; required 1.80x.",
@@ -617,10 +647,26 @@
       {
         "reasoning": "Opened virtual long because signal confidence 0.3373 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
         "status": "opened"
+      },
+      {
+        "reasoning": "Virtual long closed by take_profit; maker entry (0.01%) + maker exit (0.01%).",
+        "status": "take_profit"
+      },
+      {
+        "reasoning": "Opened virtual long because signal confidence 0.3782 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+        "status": "opened"
+      },
+      {
+        "reasoning": "Virtual long closed by stop_loss; maker entry (0.01%) + taker exit (0.06%).",
+        "status": "stop_loss"
+      },
+      {
+        "reasoning": "Opened virtual long because signal confidence 0.3782 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+        "status": "opened"
       }
     ],
     "historical_performance": {
-      "average_holding_duration_seconds": 8800,
+      "average_holding_duration_seconds": 9184.62,
       "daily_performance": [
         {
           "day": "2026-05-09",
@@ -636,98 +682,98 @@
         },
         {
           "day": "2026-05-11",
-          "net_pnl": -27.664412,
-          "total_trades": 4,
-          "win_rate": 0.25
+          "net_pnl": -43.244978,
+          "total_trades": 6,
+          "win_rate": 0.1667
         }
       ],
       "peak_equity": 1000.0,
-      "trough_equity": 755.074737
+      "trough_equity": 739.494171
     },
     "open_position": {
-      "entry": 80846.35559,
-      "opened_at": 1778490120,
-      "qty": 0.07907735,
-      "reasoning": "Limit entry 0.1% above breakout: 80846 (resistance: 80875). Volume 0.87x (threshold: 0.75x), RSI: 38.6. Stop_loss: 61 (0.08%) below structure. Maker fee 0.01%.",
+      "entry": 81145.97491,
+      "opened_at": 1778503920,
+      "qty": 0.07106086,
+      "reasoning": "Limit entry 0.1% above breakout: 81146 (resistance: 81350). Volume 0.83x (threshold: 0.75x), RSI: 29.0. Stop_loss: 112 (0.14%) below structure. Maker fee 0.01%.",
       "side": "long",
-      "stop_loss": 80750.87,
+      "stop_loss": 81041.91,
       "symbol": "BTCUSDT",
-      "take_profit": 80812.263
+      "take_profit": 81153.13615
     },
     "paper_trading_only": true,
     "risk_per_trade_pct": 1.0,
     "starting_cash": 1000.0
   },
   "adaptation": {
-    "closed_trades": 22,
-    "conclusion": "Verzamel meer data (22/30 trades). Risico beperkt tot 0.50%.",
+    "closed_trades": 24,
+    "conclusion": "Verzamel meer data (24/30 trades). Risico beperkt tot 0.50%.",
     "drawdown_analysis": {
-      "current_drawdown": 244.925263,
-      "current_drawdown_pct": 24.4925,
-      "current_equity": 755.074737,
-      "max_drawdown": 244.925263,
-      "max_drawdown_pct": 24.4925,
+      "current_drawdown": 260.505829,
+      "current_drawdown_pct": 26.0506,
+      "current_equity": 739.494171,
+      "max_drawdown": 260.505829,
+      "max_drawdown_pct": 26.0506,
       "peak_equity": 1000.0,
       "recovery_factor": -1.0
     },
-    "expectancy": -11.132967,
+    "expectancy": -10.85441,
     "mode": "data_gathering",
-    "profit_factor": 0.0327,
+    "profit_factor": 0.0308,
     "regime_detection": {
       "confidence": 0.9,
-      "consistency_ratio": 1.8453,
-      "expectancy": -11.132967,
+      "consistency_ratio": 1.8246,
+      "expectancy": -10.85441,
       "max_consecutive_losses": 18,
       "max_consecutive_wins": 1,
       "recommendation": "Verhoog risk_per_trade licht; trending markten belonen consistente strategie\u00ebn.",
       "regime": "trending",
       "trending_score": 0.9,
-      "win_rate": 0.0455
+      "win_rate": 0.0417
     },
     "rolling_windows": {
       "window_100": {
         "available": false,
-        "reason": "Onvoldoende trades (22 < 100)"
+        "reason": "Onvoldoende trades (24 < 100)"
       },
       "window_200": {
         "available": false,
-        "reason": "Onvoldoende trades (22 < 200)"
+        "reason": "Onvoldoende trades (24 < 200)"
       },
       "window_50": {
         "available": false,
-        "reason": "Onvoldoende trades (22 < 50)"
+        "reason": "Onvoldoende trades (24 < 50)"
       }
     },
     "statistical_significance": {
-      "min_samples_needed": 8,
+      "min_samples_needed": 6,
       "reason": "Onvoldoende samples voor statistische analyse (minimaal 30 trades vereist)",
       "significant": false
     },
     "suggested_risk_per_trade_pct": 0.5,
-    "win_rate": 0.0455
+    "win_rate": 0.0417
   },
   "chart_output": "_dashboard-build/live_btcusdt_dashboard.png",
   "decision": {
-    "reasoning": "Opened virtual long because signal confidence 0.3373 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+    "reasoning": "Opened virtual long because signal confidence 0.3782 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
     "status": "opened"
   },
   "paper_trading_only": true,
   "signal": {
     "action": "enter_long",
-    "confidence": 0.3373,
-    "entry": 80846.35559,
+    "confidence": 0.3782,
+    "entry": 81145.97491,
     "entry_offset_pct": 0.001,
-    "generated_at": 1778490120,
+    "generated_at": 1778503920,
     "order_type": "limit",
-    "reasoning": "Limit entry 0.1% above breakout: 80846 (resistance: 80875). Volume 0.87x (threshold: 0.75x), RSI: 38.6. Stop_loss: 61 (0.08%) below structure. Maker fee 0.01%.",
-    "resistance": 80875.45,
-    "risk_reward": 1.54,
-    "stop_loss": 80750.87,
-    "support": 80732.84,
+    "reasoning": "Limit entry 0.1% above breakout: 81146 (resistance: 81350). Volume 0.83x (threshold: 0.75x), RSI: 29.0. Stop_loss: 112 (0.14%) below structure. Maker fee 0.01%.",
+    "resistance": 81350.49,
+    "risk_reward": 1.57,
+    "stop_loss": 81041.91,
+    "support": 81046.81,
     "symbol": "BTCUSDT",
-    "take_profit": 80812.263,
+    "take_profit": 81153.13615,
     "timeframe": "1m",
-    "volume_ratio": 0.8692
+    "volume_ratio": 0.8307
   },
   "state_file": ".state/live_btcusdt_paper.json"
 }
