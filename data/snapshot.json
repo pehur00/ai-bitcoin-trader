@@ -1002,6 +1002,14 @@
       {
         "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.67x (threshold: 0.75x), RSI: 34.2.",
         "status": "hold"
+      },
+      {
+        "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.67x (threshold: 0.75x), RSI: 34.2.",
+        "status": "hold"
+      },
+      {
+        "reasoning": "Opened virtual long because signal confidence 0.3002 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+        "status": "opened"
       }
     ],
     "historical_performance": {
@@ -1035,7 +1043,16 @@
       "peak_equity": 1000.0,
       "trough_equity": 626.335149
     },
-    "open_position": null,
+    "open_position": {
+      "entry": 79233.40425,
+      "opened_at": 1778690580,
+      "qty": 0.04552612,
+      "reasoning": "Limit entry 0.1% above breakout: 79233 (resistance: 79180). Volume 0.75x (threshold: 0.75x), RSI: 68.7. Stop_loss: 85 (0.11%) below structure. Maker fee 0.01%.",
+      "side": "long",
+      "stop_loss": 79095.82714286,
+      "symbol": "BTCUSDT",
+      "take_profit": 79244.80542857
+    },
     "paper_trading_only": true,
     "risk_per_trade_pct": 1.0,
     "starting_cash": 1000.0
@@ -1099,26 +1116,26 @@
   },
   "chart_output": "_site-build/live_btcusdt.png",
   "decision": {
-    "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.67x (threshold: 0.75x), RSI: 34.2.",
-    "status": "hold"
+    "reasoning": "Opened virtual long because signal confidence 0.3002 met threshold. Risk budget is 1.0% of equity with explicit stop_loss and take_profit.",
+    "status": "opened"
   },
   "paper_trading_only": true,
   "signal": {
-    "action": "hold",
-    "confidence": 0.0,
-    "entry": 80108.21,
+    "action": "enter_long",
+    "confidence": 0.3002,
+    "entry": 79233.40425,
     "entry_offset_pct": 0.001,
-    "generated_at": 1778675760,
+    "generated_at": 1778690580,
     "order_type": "limit",
-    "reasoning": "Hold: price is not breaking support/resistance with sufficient volume. Current volume ratio: 0.67x (threshold: 0.75x), RSI: 34.2.",
-    "resistance": 80559.03,
-    "risk_reward": 0.0,
-    "stop_loss": 0.0,
-    "support": 80069.3,
+    "reasoning": "Limit entry 0.1% above breakout: 79233 (resistance: 79180). Volume 0.75x (threshold: 0.75x), RSI: 68.7. Stop_loss: 85 (0.11%) below structure. Maker fee 0.01%.",
+    "resistance": 79180.44,
+    "risk_reward": 1.55,
+    "stop_loss": 79095.82714286,
+    "support": 78960.71,
     "symbol": "BTCUSDT",
-    "take_profit": 0.0,
+    "take_profit": 79244.80542857,
     "timeframe": "1m",
-    "volume_ratio": 0.6656
+    "volume_ratio": 0.7516
   },
   "state_file": ".state/live_btcusdt_paper.json"
 }
